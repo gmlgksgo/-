@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#08090d">
+<title>01:27 — 그 애의 휴대폰</title>
+<style>
+:root{--bg:#08090d;--panel:#111219;--panel2:#191a23;--line:#292a36;--text:#f4f2f8;--muted:#9695a5;--lav:#c6b7ff;--pink:#ffb8d0;--green:#b8e8d0}
+*{box-sizing:border-box}
+body{margin:0;background:#050609;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:18px}
+button{font:inherit;color:inherit;cursor:pointer}
+.phone{width:min(100%,390px);min-height:min(820px,94dvh);height:820px;max-height:94dvh;background:var(--bg);border:1px solid #343440;border-radius:36px;overflow:hidden;position:relative;box-shadow:0 25px 90px #000b;display:flex;flex-direction:column}
+.status{height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:12px;color:#e7e4ed;background:#08090d}
+.status .right{letter-spacing:2px}
+.screen{display:none;flex:1;min-height:0;overflow:auto;position:relative}
+.screen.active{display:flex;flex-direction:column}
+.lock{justify-content:space-between;text-align:center;padding:35px 24px 24px;background:radial-gradient(ellipse at 50% 28%,#302b45 0%,#11121c 36%,#08090d 72%)}
+.lock .date{font-size:13px;color:#cbc5dc;letter-spacing:1px}
+.clock{font-size:72px;font-weight:200;letter-spacing:-4px;margin:8px 0 0}
+.lockquote{font-size:15px;line-height:1.9;color:#e6dff7;margin-top:20px}
+.lockbottom{display:flex;flex-direction:column;align-items:center;gap:16px}
+.notif{background:#ffffff13;border:1px solid #ffffff18;border-radius:18px;padding:14px;text-align:left;width:100%;backdrop-filter:blur(12px);font-size:13px;line-height:1.6}
+.notif b{font-size:12px;color:#e9dfff;display:block;margin-bottom:3px}
+.primary{border:0;border-radius:999px;padding:13px 20px;background:var(--lav);color:#171222;font-weight:700}
+.subtle{background:#ffffff0c;border:1px solid #ffffff18;border-radius:999px;padding:11px 16px}
+.home{padding:18px 19px 15px;background:linear-gradient(180deg,#171525,#090a10 70%)}
+.wallpaper{border-radius:22px;min-height:170px;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(160deg,#3d3a55,#a36c83 48%,#171a30);position:relative;overflow:hidden;margin-bottom:22px}
+.wallpaper:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:#f3c4cf30;top:-100px;right:-40px}
+.wallpaper:after{content:"";position:absolute;left:0;right:0;bottom:0;height:70%;background:linear-gradient(0deg,#090a12d9,transparent)}
+.wallpaper>*{position:relative;z-index:1}
+.wallpaper .small{font-size:11px;letter-spacing:2px;color:#f5dce8}
+.wallpaper h1{font-size:23px;line-height:1.45;margin:7px 0 0;font-weight:500}
+.appgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 9px}
+.app{background:none;border:0;display:flex;align-items:center;flex-direction:column;gap:7px;padding:0;font-size:11px;color:#dedbe8}
+.appicon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,#343344,#191a24);border:1px solid #ffffff13;font-size:23px;position:relative}
+.appicon .badge{position:absolute;right:-5px;top:-5px;background:#e77f9e;color:#180e14;border-radius:99px;font-size:10px;padding:3px 6px}
+.homehint{margin:auto 0 0;padding:20px 5px 8px;text-align:center;color:#747283;font-size:11px;line-height:1.8}
+.navbar{height:5px;width:110px;background:#f4f2f8;border-radius:99px;margin:8px auto 9px;flex-shrink:0}
+.appscreen{background:#0d0e14}
+.apphead{padding:16px 18px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;position:sticky;top:0;background:#0d0e14;z-index:3}
+.back{border:0;background:none;color:var(--lav);font-size:14px;padding:5px 0}
+.apphead h2{font-size:17px;margin:0;font-weight:650;flex:1}
+.content{padding:17px;overflow:auto;flex:1}
+.muted{color:var(--muted)}.tiny{font-size:11px}.sectionlabel{font-size:11px;color:#aaa4bf;letter-spacing:1.4px;margin:5px 0 13px}
+.chathead{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.avatar{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,#d5bddb,#6d657e);color:#241b30;font-weight:700}
+.chatname{font-size:14px;font-weight:650}.online{font-size:11px;color:#8e8c9d;margin-top:3px}
+.day{text-align:center;color:#777687;font-size:10px;margin:18px 0}
+.msgrow{display:flex;margin:10px 0}.msgrow.me{justify-content:flex-end}
+.bubble{max-width:82%;padding:11px 13px;border-radius:16px;background:#22232d;font-size:13px;line-height:1.7;color:#f0edf6;white-space:pre-line}
+.me .bubble{background:#4d426c;border-bottom-right-radius:5px}
+.msgtime{font-size:9px;color:#858396;align-self:flex-end;margin:0 6px 4px}
+.storycard{background:#151620;border:1px solid #282936;border-radius:16px;padding:15px;margin:12px 0}
+.storycard h3{font-size:13px;margin:0 0 8px}.storycard p{font-size:12px;line-height:1.8;color:#b6b3c4;margin:0;white-space:pre-line}
+.photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.photo{min-height:140px;border:1px solid #ffffff12;border-radius:15px;overflow:hidden;background:linear-gradient(145deg,#383449,#181a25);display:flex;flex-direction:column;justify-content:flex-end;padding:12px;position:relative}
+.photo:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,#e4bdcc44,transparent 35%),linear-gradient(0deg,#05060cdd,transparent 80%)}
+.photo>*{position:relative}.photo .emoji{font-size:35px;margin-bottom:auto;filter:grayscale(.15)}.photo b{font-size:12px}.photo small{font-size:10px;color:#c1bdce;margin-top:5px}
+.note{background:#f0e8cf;color:#28242b;border-radius:5px;padding:19px 17px;transform:rotate(-.4deg);box-shadow:0 7px 18px #0004;margin-bottom:15px}
+.note h3{font-size:14px;margin:0 0 13px}.note p{font-size:12px;line-height:2;margin:0;white-space:pre-line}
+.callitem{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #252631}
+.callbubble{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:#20212c;font-size:17px}
+.calltext{flex:1}.calltext b{font-size:13px;display:block}.calltext small{display:block;color:var(--muted);font-size:11px;margin-top:5px}.calltime{font-size:10px;color:var(--muted)}
+.passcode{background:radial-gradient(ellipse at 50% 20%,#252136,#090a0f 68%);text-align:center;padding:35px 28px;justify-content:center}
+.passcode h2{font-size:19px;font-weight:500;margin:12px 0}.passcode p{font-size:12px;color:#aaa6b9;line-height:1.7}
+.dots{display:flex;justify-content:center;gap:13px;margin:25px 0}
+.dot{width:10px;height:10px;border:1px solid #d3c8f5;border-radius:50%}.dot.filled{background:#d3c8f5}
+.keypad{display:grid;grid-template-columns:repeat(3,58px);gap:12px;justify-content:center;margin:18px auto}
+.key{height:53px;border-radius:50%;border:1px solid #ffffff16;background:#ffffff0c;font-size:19px}
+.key:active{background:#c6b7ff55}.passmsg{min-height:22px;color:var(--pink);font-size:12px}
+.endbox{border:1px solid #4a405e;background:#171420;border-radius:18px;padding:18px;text-align:center;margin-top:18px}
+.endbox h3{color:var(--lav);font-weight:500}
+@media(max-height:700px){.phone{height:96dvh;max-height:96dvh}.clock{font-size:60px}.lock{padding-top:20px}.wallpaper{min-height:130px;margin-bottom:16px}.appgrid{gap:14px 8px}.appicon{width:46px;height:46px}}
+</style>
+</head>
+<body>
+<main class="phone" aria-label="가상의 휴대폰">
+  <div class="status"><span id="statusTime">01:27</span><span class="right">▮▮▮  ◉  82%</span></div>
+
+  <section class="screen lock active" id="lock">
+    <div>
+      <div class="date">10월 18일 일요일</div>
+      <div class="clock" id="clock">01:27</div>
+      <div class="lockquote">“네가 없는 하루에도<br>나는 네 안부를 기다린다.”</div>
+    </div>
+    <div class="lockbottom">
+      <div class="notif"><b>메시지 · 지금</b>내 사람 ♡<br>오늘도 무사히 집에 도착했어?</div>
+      <button class="primary" onclick="show('passcode')">휴대폰 잠금 해제</button>
+      <div class="tiny muted">주인을 알 수 없는 휴대폰입니다.</div>
+    </div>
+  </section>
+
+  <section class="screen passcode" id="passcode">
+    <div style="font-size:28px">⌁</div>
+    <h2>비밀번호를 입력해 주세요</h2>
+    <p>힌트: 두 사람이 처음 만난 날.<br><span class="muted">메모 어딘가에 단서가 있을지도 모른다.</span></p>
+    <div class="dots" id="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>
+    <div class="keypad">
+      <button class="key" onclick="keyIn('1')">1</button><button class="key" onclick="keyIn('2')">2</button><button class="key" onclick="keyIn('3')">3</button>
+      <button class="key" onclick="keyIn('4')">4</button><button class="key" onclick="keyIn('5')">5</button><button class="key" onclick="keyIn('6')">6</button>
+      <button class="key" onclick="keyIn('7')">7</button><button class="key" onclick="keyIn('8')">8</button><button class="key" onclick="keyIn('9')">9</button>
+      <button class="key" onclick="keyClear()">⌫</button><button class="key" onclick="keyIn('0')">0</button><button class="key" onclick="keyClear()">↺</button>
+    </div>
+    <div class="passmsg" id="passmsg">비밀번호 네 자리를 입력하세요.</div>
+    <button class="subtle" onclick="show('lock')" style="margin-top:12px">돌아가기</button>
+  </section>
+
+  <section class="screen home" id="home">
+    <div class="wallpaper"><div class="small">OCTOBER, WITH YOU</div><h1>너와 함께한 날들은<br>아직 끝나지 않았다.</h1></div>
+    <div class="appgrid">
+      <button class="app" onclick="openApp('messages')"><span class="appicon">☏<i class="badge">3</i></span>메시지</button>
+      <button class="app" onclick="openApp('photos')"><span class="appicon">▧</span>사진첩</button>
+      <button class="app" onclick="openApp('notes')"><span class="appicon">✎</span>메모</button>
+      <button class="app" onclick="openApp('calls')"><span class="appicon">↗</span>통화 기록</button>
+      <button class="app" onclick="openApp('calendar')"><span class="appicon">▦</span>캘린더</button>
+      <button class="app" onclick="openApp('voice')"><span class="appicon">♫</span>음성 메모</button>
+      <button class="app" onclick="openApp('about')"><span class="appicon">?</span>휴대폰 주인</button>
+      <button class="app" onclick="show('lock')"><span class="appicon">◐</span>잠금 화면</button>
+    </div>
+    <div class="homehint">알림은 아직 끝나지 않았다.<br>천천히, 하나씩 열어 보자.</div>
+  </section>
+
+  <section class="screen appscreen" id="messages">
+    <header class="apphead"><button class="back" onclick="show('home')">‹ 뒤로</button><h2>메시지</h2></header>
+    <div class="content">
+      <div class="chathead"><div class="avatar">윤</div><div><div class="chatname">내 사람 ♡</div><div class="online">마지막 접속 · 오늘 00:41</div></div></div>
+      <div class="day">10월 17일 토요일</div>
+      <div class="msgrow"><div class="bubble">오늘 병원 다녀왔어?</div><span class="msgtime">오후 8:12</span></div>
+      <div class="msgrow me"><span class="msgtime">오후 8:14</span><div class="bubble">응. 괜찮대. 걱정하지 마.</div></div>
+      <div class="msgrow"><div class="bubble">거짓말할 때 말끝에 마침표 붙이는 거 알아?</div><span class="msgtime">오후 8:15</span></div>
+      <div class="msgrow me"><span class="msgtime">오후 8:16</span><div class="bubble">너한테는 못 숨기네 ㅋㅋ</div></div>
+      <div class="msgrow"><div class="bubble">아픈 거 나한테 숨기지 않기로 했잖아.</div><span class="msgtime">오후 8:17</span></div>
+      <div class="msgrow me"><span class="msgtime">오후 8:20</span><div class="bubble">미안. 네가 걱정하는 게 싫어서 그랬어.</div></div>
+      <div class="msgrow"><div class="bubble">나는 네가 걱정돼도 좋아.<br>네가 혼자 아픈 게 더 싫어.</div><span class="msgtime">오후 8:21</span></div>
+      <div class="day">오늘</div>
+      <div class="msgrow me"><span class="msgtime">오전 12:03</span><div class="bubble">자?</div></div>
+      <div class="msgrow"><div class="bubble">아직. 네 목소리 듣고 싶어서.</div><span class="msgtime">오전 12:04</span></div>
+      <div class="msgrow me"><span class="msgtime">오전 12:05</span><div class="bubble">내일은 꼭 갈게. 약속할게.</div></div>
+      <div class="msgrow"><div class="bubble">이번엔 약속 지켜 줘.<br>나 기다리는 거 잘하잖아. ♡</div><span class="msgtime">오전 12:06</span></div>
+      <div class="storycard"><h3>📌 고정된 메시지</h3><p>“네가 돌아오는 날, 우리 처음 만났던 역 앞에서 만나자.”</p></div>
+    </div>
+  </section>
+
+  <section class="screen appscreen" id="photos">
+    <header class="apphead"><button class="back" onclick="show('home')">‹ 뒤로</button><h2>사진첩</h2></header>
+    <div class="content">
+      <div class="sectionlabel">최근 항목 · 6장의 기억</div>
+      <div class="photo-grid">
+        <button class="photo" onclick="photoDetail('첫눈 오던 날','둘이 처음 같이 눈을 본 날. 장갑 한 짝을 나눠 꼈다.')"><span class="emoji">❄️</span><b>첫눈 오던 날</b><small>작년 12월 8일</small></button>
+        <button class="photo" onclick="photoDetail('흔들린 사진','초점은 나갔는데, 네가 웃는 소리는 아직 기억난다.')"><span class="emoji">🌆</span><b>흔들린 사진</b><small>올해 2월 14일</small></button>
+        <button class="photo" onclick="photoDetail('병원 앞 벤치','괜찮다고 말하는 네 손이 차가워서, 오래 잡고 있었다.')"><span class="emoji">🌙</span><b>병원 앞 벤치</b><small>올해 5월 21일</small></button>
+        <button class="photo" onclick="photoDetail('두 개의 커피','한 잔은 늘 네 취향대로. 시럽은 한 번만.')"><span class="emoji">☕</span><b>두 개의 커피</b><small>올해 6월 3일</small></button>
+        <button class="photo" onclick="photoDetail('보내지 못한 셀카','네가 없는 날에도 네게 보여 주고 싶은 게 생긴다.')"><span class="emoji">🪟</span><b>보내지 못한 셀카</b><small>올해 9월 19일</small></button>
+        <button class="photo" onclick="photoDetail('역 앞에서','돌아오는 날에는 이 자리에서 꼭 웃자.')"><span class="emoji">🚉</span><b>역 앞에서</b><small>오늘 저장됨</small></button>
+      </div>
+      <div class="storycard"><h3>사진 정보</h3><p>사진 속 다른 사람은 대부분 같은 사람이다. 얼굴이 선명하게 나온 사진은 이상하게도 한 장도 없다.</p></div>
+    </div>
+  </section>
+
+  <section class="screen appscreen" id="notes">
+    <header class="apphead"><button class="back" onclick="show('home')">‹ 뒤로</button><h2>메모</h2></header>
+    <div class="content">
+      <div class="sectionlabel">고정 메모</div>
+      <div class="note"><h3>잊지 말 것</h3><p>1. 약 먹었는지 물어보기
+2. 밥은 꼭 챙겨 먹기
+3. 추우면 목도리 하기
+4. 힘든 날엔 괜찮은 척하지 않기
+
+그리고 가장 중요한 것.
+
+네가 미안해하지 않게,
+무사히 돌아가기.</p></div>
+      <div class="note"><h3>처음 만난 날</h3><p>10월 18일.
+
+비가 와서 역 안에 한참 서 있었다.
+네가 우산을 내 쪽으로 기울이는 바람에
+네 어깨만 다 젖었다.
+
+비밀번호는 그날.
+잊을 리가 없으니까.</p></div>
+      <div class="note"><h3>임시 메모 · 삭제 예정</h3><p>검사 결과를 듣고 나서 제일 먼저 네 얼굴이 생각났다.
+겁이 났다. 네가 슬퍼할까 봐.
+그래도 이제는 혼자 견디는 게 사랑이라고
+착각하지 않기로 했다.</p></div>
+      <div class="storycard"><h3>🔎 단서</h3><p>비밀번호는 처음 만난 날의 월일 네 자리입니다.</p><button class="primary" onclick="show('passcode')" style="margin-top:12px">비밀번호 다시 입력하기</button></div>
+    </div>
+  </section>
+
+  <section class="screen appscreen" id="calls">
+    <header class="apphead"><button class="back" onclick="show('home')">‹ 뒤로</button><h2>통화 기록</h2></header>
+    <div class="content">
+      <div class="sectionlabel">최근 통화</div>
+      <div class="callitem"><div class="callbubble">↙</div><div class="calltext"><b>내 사람 ♡</b><small>수신 통화 · 18분 42초</small></div><span class="calltime">00:41</span></div>
+      <div class="callitem"><div class="callbubble">↗</div><div class="calltext"><b>내 사람 ♡</b><small>발신 통화 · 부재중</small></div><span class="calltime">어제</span></div>
+      <div class="callitem"><div class="callbubble">↙</div><div class="calltext"><b>내 사람 ♡</b><small>수신 통화 · 2분 09초</small></div><span class="calltime">10월 15일</span></div>
+      <div class="callitem"><div class="callbubble">↙</div><div class="calltext"><b>내 사람 ♡</b><small>수신 통화 · 1시간 03분</small></div><span class="calltime">10월 12일</span></div>
+      <div class="callitem"><div class="callbubble">↗</div><div class="calltext"><b>내 사람 ♡</b><small>발신 통화 · 응답 없음</small></div><span class="calltime">10월 10일</span></div>
+      <div class="storycard"><h3>통화 메모 · 오늘 00:41</h3><p>“내일은 진짜 갈게.”
+“응. 안 와도 괜찮으니까, 무리하지는 마.”
+“이번엔 꼭 보고 싶어.”
+잠깐의 침묵 뒤에, 둘 다 울지 않는 척 웃었다.</p></div>
+    </div>
+  </section>
+
+  <section class="screen appscreen" id="calendar">
+    <header class="apphead"><button class="back" onclick="show('home')">‹ 뒤로</button><h2>캘린더</h2></header>
+    <div class="content">
+      <div class="sectionlabel">10월 · 약속</div>
+      <div class="storycard"><h3>18일 · 오늘</h3><p>처음 만난 날.
+비가 오면 역 안에서 기다리기.
+늦더라도 꼭 가기.</p></div>
+      <div class="storycard"><h3>19일 · 내일</h3><p>오후 4시 · 중앙역 2번 출구
+꽃은 사지 말 것. 그 사람은 꽃보다
+같이 걷는 걸 더 좋아한다.</p></div>
+      <div class="storycard"><h3>31일</h3><p>올해는 같이 단풍 보기.
+내년에도, 그 다음 해에도.</p></div>
+    </div>
+  </section>
+
+  <section class="screen appscreen" id="voice">
+    <header class="apphead"><button class="back" onclick="show('home')">‹ 뒤로</button><h2>음성 메모</h2></header>
+    <div class="content">
+      <div class="storycard"><h3>🎙️ 녹음 014 · 재생할 수 없는 메모</h3><p>파일은 재생되지 않는다. 대신 제목 아래에 적힌 자동 메모가 남아 있다.</p></div>
+      <div class="note"><h3>음성 인식 텍스트</h3><p>“나중에 이걸 듣게 된다면…
+내가 너를 얼마나 좋아했는지
+의심하지 않았으면 좋겠어.
+
+함께한 시간이 짧아지는 게 아니라,
+그 시간이 나한테는 너무 커서
+앞으로도 오래오래 기억할 것 같아.
+
+내일 보자. 꼭.”</p></div>
+      <p class="tiny muted">저장 날짜: 오늘 00:58 · 이 메모는 이야기 속 가상의 기록입니다.</p>
+    </div>
+  </section>
+
+  <section class="screen appscreen" id="about">
+    <header class="apphead"><button class="back" onclick="show('home')">‹ 뒤로</button><h2>휴대폰 주인</h2></header>
+    <div class="content">
+      <div style="text-align:center;padding:20px 0 28px"><div class="avatar" style="width:76px;height:76px;font-size:25px;margin:0 auto 12px">강</div><h2 style="margin:0 0 6px">강도윤</h2><div class="muted tiny">27세 · 저장된 프로필</div></div>
+      <div class="storycard"><h3>상태 메시지</h3><p>“돌아가는 길을 잊지 않기.”</p></div>
+      <div class="storycard"><h3>최근 변경된 프로필</h3><p>예전에는 “혼자서도 괜찮다”고 적혀 있었다.
+오늘 새벽, 그 문장을 지우고 이 말을 남겼다.</p></div>
+      <div class="storycard"><h3>발견한 사실</h3><p>도윤은 누군가를 사랑하고 있다.
+그리고 그 사람에게 돌아가겠다는 약속을,
+자기 자신에게도 반복해서 하고 있다.</p></div>
+      <button class="primary" style="width:100%" onclick="show('ending')">마지막 기록 확인하기</button>
+    </div>
+  </section>
+
+  <section class="screen appscreen" id="photoDetail">
+    <header class="apphead"><button class="back" onclick="show('photos')">‹ 사진첩</button><h2 id="photoTitle">사진</h2></header>
+    <div class="content"><div class="endbox"><div style="font-size:48px">♡</div><p id="photoText" style="font-size:14px;line-height:1.9;color:#d7d1e5"></p></div></div>
+  </section>
+
+  <section class="screen appscreen" id="ending">
+    <header class="apphead"><button class="back" onclick="show('home')">‹ 홈</button><h2>마지막 기록</h2></header>
+    <div class="content">
+      <div class="sectionlabel">임시 보관함 · 01:26</div>
+      <div class="endbox">
+        <div style="font-size:34px">☾</div>
+        <h3>내일은 꼭 만나자.</h3>
+        <p style="font-size:13px;line-height:2;color:#c7c1d4">이 휴대폰에는 사랑한다는 말이 아주 많다.<br>그런데 가장 자주 남겨진 말은<br>“미안해, 조금만 더 기다려 줘.”였다.</p>
+        <p style="font-size:13px;line-height:2;color:#e9dffb">사랑하는 사람을 지키고 싶어서<br>혼자 견디려 했던 사람.<br>그리고 그 사람이 혼자이지 않도록<br>끝까지 기다리기로 한 사람.</p>
+        <div style="color:#9e93bd;font-size:12px;margin-top:18px">“이번에는, 같이 견디자.”</div>
+      </div>
+      <p class="tiny muted" style="text-align:center;margin-top:22px">END OF RECORD · 01:27</p>
+      <button class="subtle" style="width:100%" onclick="show('lock')">처음 화면으로</button>
+    </div>
+  </section>
+
+  <div class="navbar"></div>
+</main>
+<script>
+let pin = "";
+const correctPin = "1018";
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const target=document.getElementById(id);
+  if(target) target.classList.add('active');
+  if(id==='home') document.getElementById('statusTime').textContent='01:27';
+}
+function keyIn(n){
+  if(pin.length>=4)return;
+  pin+=n; updateDots();
+  if(pin.length===4){
+    if(pin===correctPin){
+      document.getElementById('passmsg').textContent='잠금이 해제되었습니다.';
+      setTimeout(()=>{pin='';updateDots();show('home');},450);
+    }else{
+      document.getElementById('passmsg').textContent='비밀번호가 맞지 않습니다. 메모에서 단서를 찾아보세요.';
+      setTimeout(()=>{pin='';updateDots();},700);
+    }
+  }
+}
+function keyClear(){pin=pin.slice(0,-1);updateDots();document.getElementById('passmsg').textContent='비밀번호 네 자리를 입력하세요.'}
+function updateDots(){document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('filled',i<pin.length))}
+function openApp(id){show(id)}
+function photoDetail(title,desc){document.getElementById('photoTitle').textContent=title;document.getElementById('photoText').textContent=desc;show('photoDetail')}
+</script>
+</body>
+</html>
