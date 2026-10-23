@@ -120,18 +120,28 @@ button:hover { background: #383838; }
 .app span { font-size: 25px; }
 
 .panel {
+  display: table;
+  width: fit-content;
+  max-width: 90%;
   background: #191919;
   border: 1px solid #292929;
-  border-radius: 12px;
-  padding: 12px;
-  margin: 10px 0;
-  line-height: 1.7;
+  border-radius: 16px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  line-height: 1.5;
   font-size: 13px;
-  white-space: pre-line;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
-.received { margin-right: 25px; }
-.sent { margin-left: 25px; background: #282828; }
+.received {
+  margin-right: auto;
+}
+
+.sent {
+  margin-left: auto;
+  background: #282828;
+}
 
 .date {
   color: #777;
