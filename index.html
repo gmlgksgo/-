@@ -7,7 +7,9 @@
 <title>이혁재의 휴대폰</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -27,7 +29,7 @@ body {
   background: #111;
   border: 2px solid #383838;
   border-radius: 35px;
-  padding: 24px 18px;
+  padding: 20px 18px;
   box-shadow: 0 0 40px #000;
   overflow: hidden;
 }
@@ -42,19 +44,126 @@ body {
 h1 { font-size: 25px; }
 h2 { font-size: 19px; }
 
-.screen { display: none; }
-.screen.active { display: block; }
+.screen {
+  display: none;
+}
 
-.lock {
+.screen.active {
+  display: block;
+}
+
+/* 잠금 화면 */
+
+.lock-screen {
+  min-height: 590px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0 8px;
   text-align: center;
-  padding-top: 65px;
 }
 
-.clock {
-  font-size: 48px;
-  margin: 20px 0 5px;
-  font-weight: 300;
+.lock-content {
+  width: 100%;
+  max-width: 280px;
+  margin: auto;
 }
+
+.lock-date {
+  color: #aaa;
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+
+.lock-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 0 12px;
+}
+
+.lock-hint {
+  color: #aaa;
+  font-size: 13px;
+  margin: 0 0 28px;
+}
+
+.pin-dots {
+  display: flex;
+  justify-content: center;
+  gap: 17px;
+  margin: 0 0 15px;
+}
+
+.pin-dot {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+}
+
+.pin-dot.filled {
+  background: #eee;
+}
+
+.pin-message {
+  min-height: 18px;
+  margin: 0 0 20px;
+  color: #888;
+  font-size: 12px;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  gap: 12px 8px;
+}
+
+.keypad button {
+  width: 66px;
+  height: 66px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #292a2e;
+  color: #f7f7f8;
+  font-size: 26px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.keypad button:hover {
+  background: #414247;
+}
+
+.keypad button:active {
+  background: #505156;
+  transform: scale(.95);
+}
+
+.keypad .key-empty {
+  width: 66px;
+  height: 66px;
+}
+
+.keypad .delete-key {
+  background: transparent;
+  font-size: 23px;
+}
+
+.lock-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #888;
+  font-size: 12px;
+  padding: 10px 4px 0;
+}
+
+/* 기존 화면 */
 
 .muted {
   color: #888;
@@ -72,142 +181,13 @@ button {
   font-size: 14px;
 }
 
-button:hover { background: #383838; }
+button:hover {
+  background: #383838;
+}
 
 .wide {
   width: 100%;
   margin-top: 12px;
-}
-
-.pin {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: 25px;
-}
-
-.pin button {
-  height: 48px;
-  font-size: 18px;.lock-screen {
-  position: relative;
-  box-sizing: border-box;
-  width: 100%;
-  min-height: 100vh;
-  padding: 22px 24px 28px;
-  background: #111214;
-  color: #f5f5f7;
-  font-family: -apple-system, BlinkMacSystemFont,
-               "Segoe UI", sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.status-bar {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  color: #e8e8ea;
-}
-
-.lock-content {
-  width: 100%;
-  max-width: 310px;
-  text-align: center;
-  margin: 24px auto;
-}
-
-.lock-date {
-  font-size: 14px;
-  color: #a7a7ad;
-  margin-bottom: 12px;
-}
-
-.lock-title {
-  font-size: 25px;
-  font-weight: 500;
-  margin: 0 0 12px;
-  letter-spacing: -0.5px;
-}
-
-.lock-hint {
-  font-size: 14px;
-  color: #b8b8be;
-  margin-bottom: 30px;
-}
-
-.pin-dots {
-  display: flex;
-  justify-content: center;
-  gap: 17px;
-  margin-bottom: 16px;
-}
-
-.pin-dot {
-  width: 11px;
-  height: 11px;
-  border: 1px solid #dedee2;
-  border-radius: 50%;
-  box-sizing: border-box;
-}
-
-.pin-dot.filled {
-  background: #f5f5f7;
-}
-
-.pin-message {
-  min-height: 18px;
-  font-size: 12px;
-  color: #8f9097;
-  margin-bottom: 20px;
-}
-
-.keypad {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  gap: 12px 10px;
-}
-
-.keypad button {
-  width: 68px;
-  height: 68px;
-  border: none;
-  border-radius: 50%;
-  background: #292a2e;
-  color: #f7f7f8;
-  font-size: 27px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
-}
-
-.keypad button:active {
-  background: #505156;
-  transform: scale(0.95);
-}
-
-.keypad .key-empty {
-  width: 68px;
-  height: 68px;
-}
-
-.keypad .delete-key {
-  background: transparent;
-  font-size: 24px;
-}
-
-.lock-footer {
-  width: 100%;
-  max-width: 310px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #a5a5ab;
-  font-size: 12px;
-  padding-bottom: 4px;
 }
 
 .appgrid {
@@ -229,7 +209,9 @@ button:hover { background: #383838; }
   font-size: 12px;
 }
 
-.app span { font-size: 25px; }
+.app span {
+  font-size: 25px;
+}
 
 .panel {
   display: table;
@@ -262,7 +244,9 @@ button:hover { background: #383838; }
   margin: 20px 0 10px;
 }
 
-.back { margin-top: 20px; }
+.back {
+  margin-top: 20px;
+}
 
 .note {
   border-left: 2px solid #777;
@@ -274,7 +258,7 @@ button:hover { background: #383838; }
 }
 
 .photo {
-  height: 125px;
+  min-height: 125px;
   background: linear-gradient(145deg, #353535, #111);
   display: flex;
   align-items: center;
@@ -286,59 +270,67 @@ button:hover { background: #383838; }
   padding: 10px;
 }
 
+@media (max-width: 380px) {
+  body {
+    padding: 8px;
+  }
+
+  .phone {
+    width: 100%;
+    padding: 18px 14px;
+  }
+}
 </style>
 </head>
 
 <body>
 <div class="phone">
+
   <div class="status">
     <span>9:41</span>
     <span>● ● ● ▰</span>
   </div>
 
   <!-- 잠금 화면 -->
- <div id="lock-screen" class="lock-screen">
-  <div class="status-bar">
-    <span>●</span>
-    <span>LTE　 Wi-Fi　 ▰</span>
-  </div>
+  <div id="lock-screen" class="lock-screen">
+    <div class="lock-content">
+      <p class="lock-date">10월 15일</p>
+      <h1 class="lock-title">암호 입력</h1>
+      <p class="lock-hint">내 새끼 생일♡</p>
 
-  <div class="lock-content">
-    <p class="lock-date">10월 15일</p>
-    <h1 class="lock-title">암호 입력</h1>
-    <p class="lock-hint">내 새끼 생일♡</p>
+      <div class="pin-dots" id="pin-dots">
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+      </div>
 
-    <div class="pin-dots" id="pin-dots">
-      <span class="pin-dot"></span>
-      <span class="pin-dot"></span>
-      <span class="pin-dot"></span>
-      <span class="pin-dot"></span>
+      <p id="pin-message" class="pin-message">
+        암호를 입력하세요
+      </p>
+
+      <div class="keypad">
+        <button type="button" onclick="pressPin('1')">1</button>
+        <button type="button" onclick="pressPin('2')">2</button>
+        <button type="button" onclick="pressPin('3')">3</button>
+        <button type="button" onclick="pressPin('4')">4</button>
+        <button type="button" onclick="pressPin('5')">5</button>
+        <button type="button" onclick="pressPin('6')">6</button>
+        <button type="button" onclick="pressPin('7')">7</button>
+        <button type="button" onclick="pressPin('8')">8</button>
+        <button type="button" onclick="pressPin('9')">9</button>
+        <span class="key-empty"></span>
+        <button type="button" onclick="pressPin('0')">0</button>
+        <button type="button" class="delete-key"
+          onclick="deletePin()" aria-label="마지막 숫자 지우기">⌫</button>
+      </div>
     </div>
 
-    <p id="pin-message" class="pin-message">암호를 입력하세요</p>
-
-    <div class="keypad">
-      <button onclick="pressPin('1')">1</button>
-      <button onclick="pressPin('2')">2</button>
-      <button onclick="pressPin('3')">3</button>
-      <button onclick="pressPin('4')">4</button>
-      <button onclick="pressPin('5')">5</button>
-      <button onclick="pressPin('6')">6</button>
-      <button onclick="pressPin('7')">7</button>
-      <button onclick="pressPin('8')">8</button>
-      <button onclick="pressPin('9')">9</button>
-      <span class="key-empty"></span>
-      <button onclick="pressPin('0')">0</button>
-      <button class="delete-key" onclick="deletePin()">⌫</button>
+    <div class="lock-footer">
+      <span>긴급 전화</span>
+      <span>◉</span>
     </div>
   </div>
-
-  <div class="lock-footer">
-    <span>긴급 전화</span>
-    <span>◉</span>
-  </div>
-</div>
-
 
   <!-- 홈 화면 -->
   <section id="home" class="screen">
@@ -371,30 +363,24 @@ button:hover { background: #383838; }
     <p class="muted">최근 대화</p>
 
     <div class="date">10월 14일</div>
-    <div class="panel received"> 혁아 ! 내일 무슨 날이야 ?</div>
-    <div class="panel received"> 아무리 생각해도 기억이 안나네 ㅜ</div>
-      
-    <div class="panel sent"> 미안, 바빠서 이제 봤네.</div>
-    <div class="panel sent"> 내일 네 생일이잖아.</div>
-
-    <div class="panel received"> 아 맞네 ㅎ</div>
-    <div class="panel received"> 미안해 !! 바쁠 시간에 귀찮게 해서 ㅜ</div>
-
-    <div class="panel sent"> 뭐가 미안해.</div>
-    <div class="panel sent"> 하나도 안 귀찮으니까</div>
-    <div class="panel sent"> 기억 안 나는 건 다 물어봐.</div>
+    <div class="panel received">혁아 ! 내일 무슨 날이야 ?</div>
+    <div class="panel received">아무리 생각해도 기억이 안나네 ㅜ</div>
+    <div class="panel sent">미안, 바빠서 이제 봤네.</div>
+    <div class="panel sent">내일 네 생일이잖아.</div>
+    <div class="panel received">아 맞네 ㅎ</div>
+    <div class="panel received">미안해 !! 바쁠 시간에 귀찮게 해서 ㅜ</div>
+    <div class="panel sent">뭐가 미안해.</div>
+    <div class="panel sent">하나도 안 귀찮으니까</div>
+    <div class="panel sent">기억 안 나는 건 다 물어봐.</div>
 
     <div class="date">10월 15일</div>
-    <div class="panel sent"> 동해야 생일축하해.</div>
-    <div class="panel sent"> 올해도 고마워 내 사랑.</div>
-    <div class="panel sent"> 내년에도 잘 부탁해.</div>
-
-    <div class="panel received"> 혁재야 고마워 !</div>
-    <div class="panel received"> 근데 나 지금 여기가 어딘지 모르겟어 ㅜ</div>
-    <div class="panel received"> 우리 숙소 여기 아닌가 ?</div>
-  
-    <div class="panel sent"> 전화부터받아.
-    </div>
+    <div class="panel sent">동해야 생일축하해.</div>
+    <div class="panel sent">올해도 고마워 내 사랑.</div>
+    <div class="panel sent">내년에도 잘 부탁해.</div>
+    <div class="panel received">혁재야 고마워 !</div>
+    <div class="panel received">근데 나 지금 여기가 어딘지 모르겟어 ㅜ</div>
+    <div class="panel received">우리 숙소 여기 아닌가 ?</div>
+    <div class="panel sent">전화부터받아.</div>
 
     <button class="wide back" onclick="show('home')">← 홈으로</button>
   </section>
@@ -405,11 +391,16 @@ button:hover { background: #383838; }
     <p class="muted">즐겨찾기 · 2장</p>
 
     <div class="photo">🌊<br>바닷가에서 함께 찍은 사진</div>
-    <div class="panel"> 갑자기 바다가 보고 싶다던 너를 데리고 바로 바다를 갔었다. 전 날 늦게까지 촬영한 탓인지 얼마 안 지나 내 어깨에 기대어 잠들었는데, 깨우기가 아까워서 한참을 그대로 있었다.
+    <div class="panel">
+      갑자기 바다가 보고 싶다던 너를 데리고 바로 바다를 갔었다.
+      전 날 늦게까지 촬영한 탓인지 얼마 안 지나 내 어깨에 기대어
+      잠들었는데, 깨우기가 아까워서 한참을 그대로 있었다.
     </div>
 
     <div class="photo">♡<br>서로를 바라보는 두 사람</div>
-    <div class="panel"> 연습실에서 려욱이가 찍어줬던 사진. 사진을 보곤 내 눈빛이 느끼하다며 놀려대던 동해의 모습이 생생하다.
+    <div class="panel">
+      연습실에서 려욱이가 찍어줬던 사진. 사진을 보곤 내 눈빛이
+      느끼하다며 놀려대던 동해의 모습이 생생하다.
     </div>
 
     <button class="wide back" onclick="show('home')">← 홈으로</button>
@@ -420,70 +411,65 @@ button:hover { background: #383838; }
     <h2>메모</h2>
     <p class="muted">고정된 메모 · 나만 보기</p>
 
-    <div class="note"> <b>동해</b>
-      동해가 이유없이 우울해 하는 날은 달달한 거 사주기.
-      추위를 많이 타니까 꼭 겉옷 들고 다니기.
-      잠들기 전에 사랑한다고 안하면 삐짐.
-      미안해보다는 사랑해를 더 좋아하니까 많이 해주기.
+    <div class="note"><b>동해</b>
+동해가 이유없이 우울해 하는 날은 달달한 거 사주기.
+추위를 많이 타니까 꼭 겉옷 들고 다니기.
+잠들기 전에 사랑한다고 안하면 삐짐.
+미안해보다는 사랑해를 더 좋아하니까 많이 해주기.
 
-      요즘 동해가 기억을 잘 못한다.
-      원래도 자주 깜빡하는 녀석이지만 요즘은 그냥 기억을 못하는 거 같다.
-      아침에 블루베리 먹었는 지 물어보기.
-      영양제 챙겼는 지 확인하기.
-      놓고 가는 거 없는 지 확인 해주기.
+요즘 동해가 기억을 잘 못한다.
+원래도 자주 깜빡하는 녀석이지만 요즘은 그냥 기억을 못하는 거 같다.
+아침에 블루베리 먹었는 지 물어보기.
+영양제 챙겼는 지 확인하기.
+놓고 가는 거 없는 지 확인 해주기.
 
-      동해가 기억 못해도 내가 챙겨주면 되니까.
-      </div>
-    
+동해가 기억 못해도 내가 챙겨주면 되니까.</div>
 
-    
-    <div class="note"> <b>9월 28일</b>
-      오늘 동해가 우리 집을 낯설어했다.
-      여기가 어디냐고 물었다.
-      집이라고 말해 주자 미안하다고 했다.
+    <div class="note"><b>9월 28일</b>
+오늘 동해가 우리 집을 낯설어했다.
+여기가 어디냐고 물었다.
+집이라고 말해 주자 미안하다고 했다.
 
-      네가 왜 미안해야 해.
-      잘못한 건 아무것도 없는데.
-    </div>
-    
+네가 왜 미안해야 해.
+잘못한 건 아무것도 없는데.</div>
 
-    
-    <div class="note"> <b>10월 3일</b>
-      동해가 오늘 내 이름을 세 번 물었다.
-      미안해 하는 네 모습이 더 큰 상처였다.
-      얼마든지 대답해줄 수 있으니까
+    <div class="note"><b>10월 3일</b>
+동해가 오늘 내 이름을 세 번 물었다.
+미안해 하는 네 모습이 더 큰 상처였다.
+얼마든지 대답해줄 수 있으니까
 
-      내 존재만 잊지 마.
-    </div>
+내 존재만 잊지 마.</div>
 
-
-    
     <div class="note">
+오늘 동해가 나를 처음 만난 사람처럼 바라봤다.
+정말 심장이 떨어지는 줄 알았다.
+몇 분 지나고 다시 기억이 돌아왔지만
+그 몇 분이 나에게는 영원처럼 느껴졌다.
 
-      오늘 동해가 나를 처음 만난 사람처럼 바라봤다.
-      정말 심장이 떨어지는 줄 알았다.
-      몇 분 지나고 다시 기억이 돌아왔지만
-      그 몇 분이 나에게는 영원처럼 느껴졌다.
+이러다 영영 네 기억 속에서 내가 사라지면 어떡하지.
 
-      이러다 영영 네 기억 속에서 내가 사라지면 어떡하지.
-
-      내일은 동해가 기억을 잃지 않게 해주세요.
-      내일은 나를 기억하게 해주세요.
+내일은 동해가 기억을 잃지 않기를,
+내일은 나를 기억하게 해주세요.
     </div>
 
-    
     <button class="wide back" onclick="show('home')">← 홈으로</button>
   </section>
 
   <!-- 통화 기록 -->
   <section id="calls" class="screen">
     <h2>최근 통화</h2>
-    <div class="panel">이동해 ♡ · 오늘 오전 08:12<br>
-      통화 시간: 04:32</div>
-    <div class="panel">이동해 ♡ · 어제 오후 11:48<br>
-      통화 시간: 17:06</div>
-    <div class="panel">이동해 ♡ · 어제 오후 06:20<br>
-      부재중 전화</div>
+    <div class="panel">
+      이동해 ♡ · 오늘 오전 08:12<br>
+      통화 시간: 04:32
+    </div>
+    <div class="panel">
+      이동해 ♡ · 어제 오후 11:48<br>
+      통화 시간: 17:06
+    </div>
+    <div class="panel">
+      이동해 ♡ · 어제 오후 06:20<br>
+      부재중 전화
+    </div>
     <p class="muted">
       통화 기록 메모: 오늘도 자기 전에 전화하기.
       내가 누군지 모르겠다고 해도 괜찮다고 말해 주기.
@@ -504,47 +490,74 @@ button:hover { background: #383838; }
     <button class="wide back" onclick="show('home')">← 홈으로</button>
   </section>
 
+</div>
+
 <script>
-  let enteredPin = "";
+let enteredPin = "";
+let pinLocked = false;
 
-  function updatePinDots() {
-    document.querySelectorAll(".pin-dot").forEach((dot, index) => {
-      dot.classList.toggle("filled", index < enteredPin.length);
-    });
-  }
+function updatePinDots() {
+  document.querySelectorAll(".pin-dot").forEach((dot, index) => {
+    dot.classList.toggle("filled", index < enteredPin.length);
+  });
+}
 
-  function pressPin(number) {
-    if (enteredPin.length >= 4) return;
+function pressPin(number) {
+  if (pinLocked || enteredPin.length >= 4) return;
 
-    enteredPin += number;
-    updatePinDots();
+  enteredPin += number;
+  updatePinDots();
 
-    if (enteredPin.length === 4) {
-      if (enteredPin === "1015") {
-        // 기존 잠금 해제 기능을 여기에 연결해 줘.
+  if (enteredPin.length === 4) {
+    pinLocked = true;
+
+    if (enteredPin === "1015") {
+      document.getElementById("pin-message").textContent =
+        "잠금이 해제되었습니다";
+
+      setTimeout(() => {
+        document.getElementById("lock-screen").style.display = "none";
+        show("home");
+        enteredPin = "";
+        updatePinDots();
+        pinLocked = false;
+      }, 300);
+    } else {
+      document.getElementById("pin-message").textContent =
+        "암호가 일치하지 않아요";
+
+      setTimeout(() => {
+        enteredPin = "";
+        updatePinDots();
         document.getElementById("pin-message").textContent =
-          "암호가 맞아요";
-      } else {
-        document.getElementById("pin-message").textContent =
-          "암호가 일치하지 않아요";
-
-        setTimeout(() => {
-          enteredPin = "";
-          updatePinDots();
-          document.getElementById("pin-message").textContent =
-            "암호를 입력하세요";
-        }, 700);
-      }
+          "암호를 입력하세요";
+        pinLocked = false;
+      }, 700);
     }
   }
+}
 
-  function deletePin() {
-    enteredPin = enteredPin.slice(0, -1);
-    updatePinDots();
-    document.getElementById("pin-message").textContent =
-      "암호를 입력하세요";
+function deletePin() {
+  if (pinLocked) return;
+
+  enteredPin = enteredPin.slice(0, -1);
+  updatePinDots();
+  document.getElementById("pin-message").textContent =
+    "암호를 입력하세요";
+}
+
+function show(screenId) {
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  const target = document.getElementById(screenId);
+
+  if (target) {
+    target.classList.add("active");
   }
+}
 </script>
-</script>
+
 </body>
 </html>
