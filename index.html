@@ -1,9 +1,11 @@
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
 <title>이혁재의 휴대폰</title>
 
 <style>
@@ -14,82 +16,175 @@ body {
   min-height: 100vh;
   background: #080808;
   color: #eee;
-  font-family: Arial, "Malgun Gothic", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Arial,
+    "Malgun Gothic", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 12px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
 }
 
 .phone {
-  width: 340px;
-  min-height: 660px;
-  background: #111;
+  width: 100%;
+  max-width: 390px;
+  height: min(850px, 96dvh);
+  min-height: 600px;
+  background: #101010;
   border: 2px solid #383838;
   border-radius: 35px;
-  padding: 20px 18px;
+  padding: 12px 18px 18px;
   box-shadow: 0 0 40px #000;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .status {
+  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
-  color: #aaa;
+  align-items: center;
+  padding: 5px 4px 14px;
+  color: #eee;
   font-size: 12px;
 }
 
-h1 { font-size: 25px; }
-h2 { font-size: 19px; }
+.status-icons { letter-spacing: 2px; }
 
-.screen { display: none; }
+/* 화면 전환 */
+.screen {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #444 transparent;
+}
+
 .screen.active { display: block; }
 
-/* 잠금 화면 */
+/* 잠금화면 */
 .lock-screen {
-  min-height: 590px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding: 30px 0 8px;
   text-align: center;
+  padding: 8px 3px 10px;
+  background: radial-gradient(
+    ellipse at 50% 10%,
+    #292929 0%,
+    #151515 45%,
+    #101010 100%
+  );
+  border-radius: 18px;
 }
 
 .lock-content {
   width: 100%;
-  max-width: 280px;
-  margin: auto;
+  max-width: 290px;
+  margin: 0 auto;
+}
+
+.lock-clock {
+  font-size: clamp(52px, 15vw, 68px);
+  font-weight: 300;
+  letter-spacing: -3px;
+  line-height: 1.15;
+  color: #f5f5f7;
+  margin: 0 0 4px;
+  font-variant-numeric: tabular-nums;
 }
 
 .lock-date {
-  color: #aaa;
-  font-size: 14px;
-  margin-bottom: 12px;
+  color: #d1d1d6;
+  font-size: 13px;
+  margin: 0 0 16px;
+}
+
+.lock-notification {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px;
+  margin: 0 0 17px;
+  text-align: left;
+  background: #303034;
+  border: 1px solid #414146;
+  border-radius: 16px;
+  color: #f5f5f7;
+}
+
+.notification-icon {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #526b8b;
+  font-size: 18px;
+}
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  color: #c7c7cc;
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+
+.notification-title {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.notification-text {
+  color: #dedee3;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .lock-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 500;
-  margin-bottom: 12px;
+  margin: 0 0 7px;
 }
 
 .lock-hint {
   color: #aaa;
-  font-size: 13px;
-  margin-bottom: 28px;
+  font-size: 12px;
+  margin: 0 0 14px;
 }
 
 .pin-dots {
   display: flex;
   justify-content: center;
-  gap: 17px;
-  margin-bottom: 15px;
+  gap: 16px;
+  margin: 0 0 10px;
 }
 
 .pin-dot {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border: 1px solid #ddd;
   border-radius: 50%;
 }
@@ -97,75 +192,79 @@ h2 { font-size: 19px; }
 .pin-dot.filled { background: #eee; }
 
 .pin-message {
-  min-height: 18px;
-  margin-bottom: 20px;
-  color: #888;
-  font-size: 12px;
+  min-height: 16px;
+  margin: 0 0 10px;
+  color: #aaa;
+  font-size: 11px;
 }
 
 .keypad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
-  gap: 12px 8px;
+  gap: 8px 8px;
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto;
 }
 
 .keypad button {
-  width: 66px;
-  height: 66px;
+  width: 58px;
+  height: 58px;
   padding: 0;
   border: none;
   border-radius: 50%;
   background: #292a2e;
   color: #f7f7f8;
-  font-size: 26px;
-  cursor: pointer;
+  font-size: 24px;
+  font-weight: 400;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: background .15s, transform .1s;
 }
 
 .keypad button:hover { background: #414247; }
-.keypad button:active { transform: scale(.95); }
-.keypad .key-empty { width: 66px; height: 66px; }
+.keypad button:active {
+  background: #505156;
+  transform: scale(.94);
+}
+
+.keypad .key-empty {
+  width: 58px;
+  height: 58px;
+}
 
 .keypad .delete-key {
   background: transparent;
-  font-size: 23px;
+  font-size: 22px;
 }
 
 .lock-footer {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: #888;
-  font-size: 12px;
-  padding: 10px 4px 0;
+  font-size: 11px;
+  padding: 10px 5px 0;
+  margin-top: auto;
 }
 
+/* 홈 화면과 앱 */
 .muted {
-  color: #888;
+  color: #999;
   font-size: 13px;
   line-height: 1.7;
 }
 
-button { cursor: pointer; }
-
-button:hover { background-color: #383838; }
-
-.wide {
-  width: 100%;
-  margin-top: 12px;
-  padding: 10px;
-  color: #eee;
-  background: #222;
-  border: 1px solid #444;
-  border-radius: 10px;
-}
+h1 { font-size: 25px; }
+h2 { font-size: 19px; }
 
 .appgrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
 .app {
@@ -175,53 +274,76 @@ button:hover { background-color: #383838; }
   align-items: center;
   justify-content: center;
   gap: 9px;
-  background: #1b1b1b;
+  background: #202020;
   color: #eee;
-  border: 1px solid #292929;
-  border-radius: 15px;
+  border: 1px solid #444;
+  border-radius: 17px;
   font-size: 12px;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.app span { font-size: 25px; }
+.app span {
+  display: block;
+  color: #eee;
+  font-size: 27px;
+  line-height: 1.2;
+}
+
+.app:hover { background: #2b2b2b; }
 
 .lock-return {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  width: 80px;
-  margin: 18px auto;
-  padding: 10px 0;
-  border: none;
+  gap: 7px;
+  width: 85px;
+  min-height: 85px;
+  margin: 0;
+  padding: 8px 0;
+  border: 1px solid transparent;
+  border-radius: 17px;
   background: transparent;
-  color: #999;
+  color: #eee;
+  font-size: 12px;
 }
 
-.lock-return span:first-child {
-  font-size: 38px;
-  line-height: 1;
+.lock-return .return-icon {
+  font-size: 36px;
+  line-height: 1.2;
 }
 
-.lock-return span:last-child { font-size: 12px; }
-.lock-return:hover { color: #fff; background: transparent; }
+.lock-return:hover { background: #202020; }
+
+.wide {
+  width: 100%;
+  margin-top: 16px;
+  padding: 11px;
+  border: 1px solid #444;
+  border-radius: 11px;
+  background: #202020;
+  color: #eee;
+}
 
 .panel {
   display: table;
   width: fit-content;
-  max-width: 90%;
+  max-width: 92%;
   background: #191919;
   border: 1px solid #292929;
   border-radius: 16px;
-  padding: 10px 14px;
+  padding: 10px 13px;
   margin: 8px 0;
-  line-height: 1.5;
+  line-height: 1.6;
   font-size: 13px;
   overflow-wrap: anywhere;
 }
 
 .received { margin-right: auto; }
-.sent { margin-left: auto; background: #282828; }
+.sent {
+  margin-left: auto;
+  background: #282828;
+}
 
 .date {
   color: #777;
@@ -229,8 +351,6 @@ button:hover { background-color: #383838; }
   text-align: center;
   margin: 20px 0 10px;
 }
-
-.back { margin-top: 20px; }
 
 .note {
   border-left: 2px solid #777;
@@ -254,9 +374,22 @@ button:hover { background-color: #383838; }
   padding: 10px;
 }
 
-@media (max-width: 380px) {
-  body { padding: 8px; }
-  .phone { width: 100%; padding: 18px 14px; }
+@media (max-height: 720px) {
+  .phone {
+    height: 96dvh;
+    min-height: 0;
+  }
+
+  .lock-clock { font-size: 48px; }
+  .lock-date { margin-bottom: 9px; }
+  .lock-notification { margin-bottom: 10px; padding: 9px; }
+  .lock-hint { margin-bottom: 9px; }
+  .keypad { gap: 5px; }
+  .keypad button,
+  .keypad .key-empty {
+    width: 48px;
+    height: 48px;
+  }
 }
 </style>
 </head>
@@ -265,32 +398,41 @@ button:hover { background-color: #383838; }
 <div class="phone">
 
   <div class="status">
-    <span>9:41</span>
-    <span>● ● ● ▰</span>
+    <span id="status-time">9:41</span>
+    <span class="status-icons">● ● ● ▰</span>
   </div>
 
   <!-- 잠금 화면 -->
   <div id="lock-screen" class="lock-screen">
+  <div id="preview-screen"
+       class="preview-screen"
+       onclick="openPasscode()">
     <div class="lock-content">
-     
-<div class="lock-clock" id="lock-clock">9:41</div>
-<p class="lock-date">10월 21일</p>
-<h1 class="lock-title">암호 입력</h1>
-<p class="lock-hint">내 새끼 생일♡</p>
+      <div class="lock-clock" id="preview-clock">9:41</div>
+      <p class="lock-date">10월 15일</p>
 
-<div class="lock-notification">
-  <div class="notification-icon">✉</div>
-  <div class="notification-content">
-    <div class="notification-top">
-      <span>메시지 · SJ 이동핵</span>
-      <span>지금</span>
-    </div>
-    <div class="notification-title">동해</div>
-    <div class="notification-text">
-      혁아! 머해 ㅎ
+      <div class="lock-notification">
+        <div class="notification-icon">✉</div>
+        <div class="notification-content">
+          <div class="notification-top">
+            <span>메시지 · SJ 이동핵 </span>
+            <span>지금</span>
+          </div>
+          <div class="notification-title">동해</div>
+          <div class="notification-text">
+            혁아! 머해 ? ㅎ
+          </div>
+        </div>
+      </div>
+
+      <p class="tap-hint">화면을 눌러 열기</p>
     </div>
   </div>
-</div>
+
+  <div id="passcode-screen" class="passcode-screen">
+
+      <h1 class="lock-title">암호 입력</h1>
+      <p class="lock-hint">내 새끼 생일♡</p>
 
       <div class="pin-dots" id="pin-dots">
         <span class="pin-dot"></span>
@@ -313,7 +455,8 @@ button:hover { background-color: #383838; }
         <button type="button" onclick="pressPin('9')">9</button>
         <span class="key-empty"></span>
         <button type="button" onclick="pressPin('0')">0</button>
-        <button type="button" class="delete-key" onclick="deletePin()">⌫</button>
+        <button type="button" class="delete-key"
+          onclick="deletePin()" aria-label="마지막 숫자 지우기">⌫</button>
       </div>
     </div>
 
@@ -323,6 +466,41 @@ button:hover { background-color: #383838; }
     </div>
   </div>
 
+  
+.preview-screen {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.passcode-screen {
+  display: none;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.tap-hint {
+  color: #aaa;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+#lock-screen.passcode-open .preview-screen {
+  display: none;
+}
+
+#lock-screen.passcode-open .passcode-screen {
+  display: block;
+}
+
   <!-- 홈 화면 -->
   <section id="home" class="screen">
     <p class="muted">이혁재의 휴대폰</p>
@@ -330,23 +508,33 @@ button:hover { background-color: #383838; }
     <p class="muted">마지막 잠금 해제: 오늘 오전 08:12</p>
 
     <div class="appgrid">
-      <button class="app" onclick="show('messages')"><span>✉</span>메시지</button>
-      <button class="app" onclick="show('photos')"><span>▧</span>사진</button>
-      <button class="app" onclick="show('notes')"><span>▤</span>메모</button>
-      <button class="app" onclick="show('calls')"><span>☎</span>통화 기록</button>
-      <button class="app" onclick="show('calendar')"><span>▦</span>달력</button>
+      <button class="app" onclick="show('messages')">
+        <span>✉</span>메시지
+      </button>
+      <button class="app" onclick="show('photos')">
+        <span>▧</span>사진
+      </button>
+      <button class="app" onclick="show('notes')">
+        <span>▤</span>메모
+      </button>
+      <button class="app" onclick="show('calls')">
+        <span>☎</span>통화 기록
+      </button>
+      <button class="app" onclick="show('calendar')">
+        <span>▦</span>달력
+      </button>
+      <button class="lock-return" onclick="backToLock()">
+        <span class="return-icon">♧</span>
+        <span>돌아가기</span>
+      </button>
     </div>
-
-    <button class="lock-return" onclick="backToLock()">
-      <span>♧</span>
-      <span>돌아가기</span>
-    </button>
   </section>
 
   <!-- 메시지 -->
   <section id="messages" class="screen">
     <h2>메시지 · 이동해</h2>
     <p class="muted">최근 대화</p>
+
     <div class="date">10월 14일</div>
     <div class="panel received">혁아 ! 내일 무슨 날이야 ?</div>
     <div class="panel received">아무리 생각해도 기억이 안나네 ㅜ</div>
@@ -366,25 +554,29 @@ button:hover { background-color: #383838; }
     <div class="panel received">근데 나 지금 여기가 어딘지 모르겟어 ㅜ</div>
     <div class="panel received">우리 숙소 여기 아닌가 ?</div>
     <div class="panel sent">전화부터받아.</div>
-    <button class="wide back" onclick="show('home')">← 홈으로</button>
+
+    <button class="wide" onclick="show('home')">← 홈으로</button>
   </section>
 
   <!-- 사진 -->
   <section id="photos" class="screen">
     <h2>사진</h2>
     <p class="muted">즐겨찾기 · 2장</p>
+
     <div class="photo">🌊<br>바닷가에서 함께 찍은 사진</div>
     <div class="panel">
       갑자기 바다가 보고 싶다던 너를 데리고 바로 바다를 갔었다.
       전 날 늦게까지 촬영한 탓인지 얼마 안 지나 내 어깨에 기대어
       잠들었는데, 깨우기가 아까워서 한참을 그대로 있었다.
     </div>
+
     <div class="photo">♡<br>서로를 바라보는 두 사람</div>
     <div class="panel">
       연습실에서 려욱이가 찍어줬던 사진. 사진을 보곤 내 눈빛이
       느끼하다며 놀려대던 동해의 모습이 생생하다.
     </div>
-    <button class="wide back" onclick="show('home')">← 홈으로</button>
+
+    <button class="wide" onclick="show('home')">← 홈으로</button>
   </section>
 
   <!-- 메모 -->
@@ -433,7 +625,7 @@ button:hover { background-color: #383838; }
 내일은 나를 기억하게 해주세요.
     </div>
 
-    <button class="wide back" onclick="show('home')">← 홈으로</button>
+    <button class="wide" onclick="show('home')">← 홈으로</button>
   </section>
 
   <!-- 통화 기록 -->
@@ -455,7 +647,7 @@ button:hover { background-color: #383838; }
       통화 기록 메모: 오늘도 자기 전에 전화하기.
       내가 누군지 모르겠다고 해도 괜찮다고 말해 주기.
     </p>
-    <button class="wide back" onclick="show('home')">← 홈으로</button>
+    <button class="wide" onclick="show('home')">← 홈으로</button>
   </section>
 
   <!-- 달력 -->
@@ -468,28 +660,15 @@ button:hover { background-color: #383838; }
       동해가 기억하지 못하더라도
       내가 대신 기억하면 된다.
     </div>
-    <button class="wide back" onclick="show('home')">← 홈으로</button>
+    <button class="wide" onclick="show('home')">← 홈으로</button>
   </section>
 
 </div>
 
 <script>
-
-function updateLockClock() {
-  const clock = document.getElementById("lock-clock");
-  if (!clock) return;
-
-  const now = new Date();
-
-  clock.textContent = now.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: false
-  });
-}
-
-updateLockClock();
-setInterval(updateLockClock, 1000);
+let enteredPin = "";
+let pinLocked = false;
+let pinTimer = null;
 
 function updatePinDots() {
   document.querySelectorAll(".pin-dot").forEach((dot, index) => {
@@ -497,38 +676,39 @@ function updatePinDots() {
   });
 }
 
+function setPinMessage(message) {
+  document.getElementById("pin-message").textContent = message;
+}
+
 function pressPin(number) {
   if (pinLocked || enteredPin.length >= 4) return;
 
-  enteredPin += number;
+  enteredPin += String(number);
   updatePinDots();
 
-  if (enteredPin.length === 4) {
-    pinLocked = true;
+  if (enteredPin.length !== 4) return;
 
-    if (enteredPin === "1015") {
-      document.getElementById("pin-message").textContent = "잠금 해제 중...";
+  pinLocked = true;
 
-      setTimeout(() => {
-        enteredPin = "";
-        updatePinDots();
-        document.getElementById("pin-message").textContent = "암호를 입력하세요";
-        document.getElementById("lock-screen").style.display = "none";
-        show("home");
-        pinLocked = false;
-      }, 300);
-    } else {
-      document.getElementById("pin-message").textContent =
-        "암호가 일치하지 않아요";
+  if (enteredPin === "1015") {
+    setPinMessage("잠금 해제 중...");
 
-      setTimeout(() => {
-        enteredPin = "";
-        updatePinDots();
-        document.getElementById("pin-message").textContent =
-          "암호를 입력하세요";
-        pinLocked = false;
-      }, 700);
-    }
+    pinTimer = setTimeout(() => {
+      enteredPin = "";
+      updatePinDots();
+      setPinMessage("암호를 입력하세요");
+      show("home");
+      pinLocked = false;
+    }, 250);
+  } else {
+    setPinMessage("암호가 일치하지 않아요");
+
+    pinTimer = setTimeout(() => {
+      enteredPin = "";
+      updatePinDots();
+      setPinMessage("암호를 입력하세요");
+      pinLocked = false;
+    }, 750);
   }
 }
 
@@ -537,8 +717,7 @@ function deletePin() {
 
   enteredPin = enteredPin.slice(0, -1);
   updatePinDots();
-  document.getElementById("pin-message").textContent =
-    "암호를 입력하세요";
+  setPinMessage("암호를 입력하세요");
 }
 
 function show(screenId) {
@@ -549,21 +728,52 @@ function show(screenId) {
   });
 
   const target = document.getElementById(screenId);
-  if (target) target.classList.add("active");
+
+  if (target) {
+    target.classList.add("active");
+  }
 }
 
 function backToLock() {
+  if (pinTimer !== null) {
+    clearTimeout(pinTimer);
+    pinTimer = null;
+  }
+
   enteredPin = "";
-  updatePinDots();
   pinLocked = false;
-  document.getElementById("pin-message").textContent = "암호를 입력하세요";
+  updatePinDots();
+  setPinMessage("암호를 입력하세요");
 
   document.querySelectorAll(".screen").forEach(screen => {
     screen.classList.remove("active");
   });
 
-  document.getElementById("lock-screen").style.display = "flex";
+  document.getElementById("lock-screen")
+  .classList.remove("passcode-open");
 }
+
+function updateClock() {
+  const now = new Date();
+
+  const timeText = now.toLocaleTimeString("ko-KR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  });
+
+  document.getElementById("lock-clock").textContent = timeText;
+  document.getElementById("status-time").textContent = timeText;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+  
+function openPasscode() {
+  document.getElementById("lock-screen")
+    .classList.add("passcode-open");
+}
+
 </script>
 
 </body>
