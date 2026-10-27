@@ -371,7 +371,7 @@ button:hover {
       <button class="app" onclick="show('calendar')">
         <span>▦</span>달력
       </button>
-      <button class="lock-return" onclick="backToLock()">
+      <button class="lock-return" onclick="show('backToLock')">
        <span>♧</span>잠금화면으로 돌아가기
       </button>
     </div>
@@ -565,6 +565,11 @@ function deletePin() {
   document.getElementById("pin-message").textContent =
     "암호를 입력하세요";
 }
+   function backToLock() {
+  enteredPin = "";
+  updatePinDots();
+  show("lock-screen");
+}
 
 function show(screenId) {
   document.querySelectorAll(".screen").forEach(screen => {
@@ -576,12 +581,6 @@ function show(screenId) {
   if (target) {
     target.classList.add("active");
   }
-  
-  function backToLock() {
-  enteredPin = "";
-  updatePinDots();
-  show("lock-screen");
-}
 }
 </script>
 
