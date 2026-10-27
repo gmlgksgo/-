@@ -7,9 +7,7 @@
 <title>이혁재의 휴대폰</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -44,16 +42,10 @@ body {
 h1 { font-size: 25px; }
 h2 { font-size: 19px; }
 
-.screen {
-  display: none;
-}
-
-.screen.active {
-  display: block;
-}
+.screen { display: none; }
+.screen.active { display: block; }
 
 /* 잠금 화면 */
-
 .lock-screen {
   min-height: 590px;
   display: flex;
@@ -73,26 +65,26 @@ h2 { font-size: 19px; }
 .lock-date {
   color: #aaa;
   font-size: 14px;
-  margin: 0 0 12px;
+  margin-bottom: 12px;
 }
 
 .lock-title {
   font-size: 24px;
   font-weight: 500;
-  margin: 0 0 12px;
+  margin-bottom: 12px;
 }
 
 .lock-hint {
   color: #aaa;
   font-size: 13px;
-  margin: 0 0 28px;
+  margin-bottom: 28px;
 }
 
 .pin-dots {
   display: flex;
   justify-content: center;
   gap: 17px;
-  margin: 0 0 15px;
+  margin-bottom: 15px;
 }
 
 .pin-dot {
@@ -102,13 +94,11 @@ h2 { font-size: 19px; }
   border-radius: 50%;
 }
 
-.pin-dot.filled {
-  background: #eee;
-}
+.pin-dot.filled { background: #eee; }
 
 .pin-message {
   min-height: 18px;
-  margin: 0 0 20px;
+  margin-bottom: 20px;
   color: #888;
   font-size: 12px;
 }
@@ -129,24 +119,13 @@ h2 { font-size: 19px; }
   background: #292a2e;
   color: #f7f7f8;
   font-size: 26px;
-  font-weight: 400;
   cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
+  transition: background .15s, transform .1s;
 }
 
-.keypad button:hover {
-  background: #414247;
-}
-
-.keypad button:active {
-  background: #505156;
-  transform: scale(.95);
-}
-
-.keypad .key-empty {
-  width: 66px;
-  height: 66px;
-}
+.keypad button:hover { background: #414247; }
+.keypad button:active { transform: scale(.95); }
+.keypad .key-empty { width: 66px; height: 66px; }
 
 .keypad .delete-key {
   background: transparent;
@@ -157,13 +136,10 @@ h2 { font-size: 19px; }
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   color: #888;
   font-size: 12px;
   padding: 10px 4px 0;
 }
-
-/* 기존 화면 */
 
 .muted {
   color: #888;
@@ -171,23 +147,18 @@ h2 { font-size: 19px; }
   line-height: 1.7;
 }
 
-button {
-  color: #eee;
-  background: #242424;
-  border: 1px solid #414141;
-  border-radius: 12px;
-  padding: 12px;
-  cursor: pointer;
-  font-size: 14px;
-}
+button { cursor: pointer; }
 
-button:hover {
-  background: #383838;
-}
+button:hover { background-color: #383838; }
 
 .wide {
   width: 100%;
   margin-top: 12px;
+  padding: 10px;
+  color: #eee;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 10px;
 }
 
 .appgrid {
@@ -197,6 +168,7 @@ button:hover {
   margin-top: 30px;
 }
 
+
 .app {
   min-height: 85px;
   display: flex;
@@ -204,13 +176,73 @@ button:hover {
   align-items: center;
   justify-content: center;
   gap: 9px;
-  background: #1b1b1b;
-  border-radius: 15px;
+  background: #202020;
+  color: #eeeeee;
+  border: 1px solid #444444;
+  border-radius: 18px;
   font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .app span {
-  font-size: 25px;
+  display: block;
+  color: #eeeeee;
+  font-size: 27px;
+  line-height: 1.2;
+}
+
+.app:hover {
+  background: #2a2a2a;
+  border-color: #666666;
+}
+
+
+.lock-return {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 80px;
+  margin: 18px auto;
+  padding: 10px 0;
+  border: none;
+  background: transparent;
+  color: #999;
+}
+
+
+.lock-return {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 85px;
+  min-height: 85px;
+  margin: 0;
+  padding: 8px 0;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  background: transparent;
+  color: #eeeeee;
+  cursor: pointer;
+}
+
+.lock-return span:first-child {
+  font-size: 38px;
+  line-height: 1.2;
+}
+
+.lock-return span:last-child {
+  font-size: 12px;
+}
+
+.lock-return:hover {
+  background: #202020;
+  border-color: #444444;
 }
 
 .panel {
@@ -224,18 +256,11 @@ button:hover {
   margin: 8px 0;
   line-height: 1.5;
   font-size: 13px;
-  white-space: normal;
   overflow-wrap: anywhere;
 }
 
-.received {
-  margin-right: auto;
-}
-
-.sent {
-  margin-left: auto;
-  background: #282828;
-}
+.received { margin-right: auto; }
+.sent { margin-left: auto; background: #282828; }
 
 .date {
   color: #777;
@@ -244,9 +269,7 @@ button:hover {
   margin: 20px 0 10px;
 }
 
-.back {
-  margin-top: 20px;
-}
+.back { margin-top: 20px; }
 
 .note {
   border-left: 2px solid #777;
@@ -271,39 +294,8 @@ button:hover {
 }
 
 @media (max-width: 380px) {
-  body {
-    padding: 8px;
-  }
-
-  .phone {
-    width: 100%;
-    padding: 18px 14px;
-  }
-  
- .lock-return {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 65px;
-  margin: 18px auto 0;
-  padding: 8px 0;
-  border: none;
-  background: transparent;
-  color: #999;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.lock-return span {
-  font-size: 38px;
-  line-height: 1;
-}
-
-.lock-return:hover {
-  color: #fff;
-}
+  body { padding: 8px; }
+  .phone { width: 100%; padding: 18px 14px; }
 }
 </style>
 </head>
@@ -330,9 +322,7 @@ button:hover {
         <span class="pin-dot"></span>
       </div>
 
-      <p id="pin-message" class="pin-message">
-        암호를 입력하세요
-      </p>
+      <p id="pin-message" class="pin-message">암호를 입력하세요</p>
 
       <div class="keypad">
         <button type="button" onclick="pressPin('1')">1</button>
@@ -346,8 +336,7 @@ button:hover {
         <button type="button" onclick="pressPin('9')">9</button>
         <span class="key-empty"></span>
         <button type="button" onclick="pressPin('0')">0</button>
-        <button type="button" class="delete-key"
-          onclick="deletePin()" aria-label="마지막 숫자 지우기">⌫</button>
+        <button type="button" class="delete-key" onclick="deletePin()">⌫</button>
       </div>
     </div>
 
@@ -364,33 +353,23 @@ button:hover {
     <p class="muted">마지막 잠금 해제: 오늘 오전 08:12</p>
 
     <div class="appgrid">
-      <button class="app" onclick="show('messages')">
-        <span>✉</span>메시지
-      </button>
-      <button class="app" onclick="show('photos')">
-        <span>▧</span>사진
-      </button>
-      <button class="app" onclick="show('notes')">
-        <span>▤</span>메모
-      </button>
-      <button class="app" onclick="show('calls')">
-        <span>☎</span>통화 기록
-      </button>
-      <button class="app" onclick="show('calendar')">
-        <span>▦</span>달력
-      </button>
-   <button class="lock-return" onclick="backToLock()">
-  <span style="font-size: 42px;">♧</span>
-  <span style="font-size: 12px;">돌아가기</span>
-</button>
+      <button class="app" onclick="show('messages')"><span>✉</span>메시지</button>
+      <button class="app" onclick="show('photos')"><span>▧</span>사진</button>
+      <button class="app" onclick="show('notes')"><span>▤</span>메모</button>
+      <button class="app" onclick="show('calls')"><span>☎</span>통화 기록</button>
+      <button class="app" onclick="show('calendar')"><span>▦</span>달력</button>
     </div>
+
+    <button class="lock-return" onclick="backToLock()">
+      <span>♧</span>
+      <span>돌아가기</span>
+    </button>
   </section>
 
   <!-- 메시지 -->
   <section id="messages" class="screen">
     <h2>메시지 · 이동해</h2>
     <p class="muted">최근 대화</p>
-
     <div class="date">10월 14일</div>
     <div class="panel received">혁아 ! 내일 무슨 날이야 ?</div>
     <div class="panel received">아무리 생각해도 기억이 안나네 ㅜ</div>
@@ -410,7 +389,6 @@ button:hover {
     <div class="panel received">근데 나 지금 여기가 어딘지 모르겟어 ㅜ</div>
     <div class="panel received">우리 숙소 여기 아닌가 ?</div>
     <div class="panel sent">전화부터받아.</div>
-
     <button class="wide back" onclick="show('home')">← 홈으로</button>
   </section>
 
@@ -418,20 +396,17 @@ button:hover {
   <section id="photos" class="screen">
     <h2>사진</h2>
     <p class="muted">즐겨찾기 · 2장</p>
-
     <div class="photo">🌊<br>바닷가에서 함께 찍은 사진</div>
     <div class="panel">
       갑자기 바다가 보고 싶다던 너를 데리고 바로 바다를 갔었다.
       전 날 늦게까지 촬영한 탓인지 얼마 안 지나 내 어깨에 기대어
       잠들었는데, 깨우기가 아까워서 한참을 그대로 있었다.
     </div>
-
     <div class="photo">♡<br>서로를 바라보는 두 사람</div>
     <div class="panel">
       연습실에서 려욱이가 찍어줬던 사진. 사진을 보곤 내 눈빛이
       느끼하다며 놀려대던 동해의 모습이 생생하다.
     </div>
-
     <button class="wide back" onclick="show('home')">← 홈으로</button>
   </section>
 
@@ -540,22 +515,15 @@ function pressPin(number) {
   if (enteredPin.length === 4) {
     pinLocked = true;
 
-   if (enteredPin === "1015") {
-  enteredPin = "";
-  updatePinDots();
-
-  document.querySelectorAll(".screen").forEach(screen => {
-    screen.style.display = "none";
-  });
-
-  document.getElementById("home").style.display = "block";
-}
+    if (enteredPin === "1015") {
+      document.getElementById("pin-message").textContent = "잠금 해제 중...";
 
       setTimeout(() => {
-        document.getElementById("lock-screen").style.display = "none";
-        show("home");
         enteredPin = "";
         updatePinDots();
+        document.getElementById("pin-message").textContent = "암호를 입력하세요";
+        document.getElementById("lock-screen").style.display = "none";
+        show("home");
         pinLocked = false;
       }, 300);
     } else {
@@ -581,26 +549,29 @@ function deletePin() {
   document.getElementById("pin-message").textContent =
     "암호를 입력하세요";
 }
-   function backToLock() {
-  enteredPin = "";
-  updatePinDots();
-    document.querySelectorAll(".screen").forEach(screen => {
-    screen.style.display = "none";
-  });
-
-  document.getElementById("lock-screen").style.display = "flex";
-}
 
 function show(screenId) {
+  document.getElementById("lock-screen").style.display = "none";
+
   document.querySelectorAll(".screen").forEach(screen => {
     screen.classList.remove("active");
   });
 
   const target = document.getElementById(screenId);
+  if (target) target.classList.add("active");
+}
 
-  if (target) {
-    target.classList.add("active");
-  }
+function backToLock() {
+  enteredPin = "";
+  updatePinDots();
+  pinLocked = false;
+  document.getElementById("pin-message").textContent = "암호를 입력하세요";
+
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById("lock-screen").style.display = "flex";
 }
 </script>
 
