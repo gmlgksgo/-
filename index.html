@@ -371,8 +371,8 @@ button:hover {
       <button class="app" onclick="show('calendar')">
         <span>▦</span>달력
       </button>
-      <button class="lock-return" onclick="show('backToLock')">
-       <span>♧</span>잠금화면으로 돌아가기
+      <button class="lock-return" onclick="backToLock()">
+       <span>♧</span>돌아가기
       </button>
     </div>
   </section>
@@ -568,7 +568,11 @@ function deletePin() {
    function backToLock() {
   enteredPin = "";
   updatePinDots();
-  show("lock-screen");
+    document.querySelectorAll(".screen").forEach(screen => {
+    screen.style.display = "none";
+  });
+
+  document.getElementById("lock-screen").style.display = "flex";
 }
 
 function show(screenId) {
