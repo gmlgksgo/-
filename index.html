@@ -88,14 +88,126 @@ button:hover { background: #383838; }
 
 .pin button {
   height: 48px;
-  font-size: 18px;
-  border-radius: 50%;
+  font-size: 18px;.lock-screen {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  padding: 22px 24px 28px;
+  background: #111214;
+  color: #f5f5f7;
+  font-family: -apple-system, BlinkMacSystemFont,
+               "Segoe UI", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#pinDisplay {
-  letter-spacing: 8px;
-  min-height: 24px;
-  margin-top: 20px;
+.status-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #e8e8ea;
+}
+
+.lock-content {
+  width: 100%;
+  max-width: 310px;
+  text-align: center;
+  margin: 24px auto;
+}
+
+.lock-date {
+  font-size: 14px;
+  color: #a7a7ad;
+  margin-bottom: 12px;
+}
+
+.lock-title {
+  font-size: 25px;
+  font-weight: 500;
+  margin: 0 0 12px;
+  letter-spacing: -0.5px;
+}
+
+.lock-hint {
+  font-size: 14px;
+  color: #b8b8be;
+  margin-bottom: 30px;
+}
+
+.pin-dots {
+  display: flex;
+  justify-content: center;
+  gap: 17px;
+  margin-bottom: 16px;
+}
+
+.pin-dot {
+  width: 11px;
+  height: 11px;
+  border: 1px solid #dedee2;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.pin-dot.filled {
+  background: #f5f5f7;
+}
+
+.pin-message {
+  min-height: 18px;
+  font-size: 12px;
+  color: #8f9097;
+  margin-bottom: 20px;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  gap: 12px 10px;
+}
+
+.keypad button {
+  width: 68px;
+  height: 68px;
+  border: none;
+  border-radius: 50%;
+  background: #292a2e;
+  color: #f7f7f8;
+  font-size: 27px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.keypad button:active {
+  background: #505156;
+  transform: scale(0.95);
+}
+
+.keypad .key-empty {
+  width: 68px;
+  height: 68px;
+}
+
+.keypad .delete-key {
+  background: transparent;
+  font-size: 24px;
+}
+
+.lock-footer {
+  width: 100%;
+  max-width: 310px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #a5a5ab;
+  font-size: 12px;
+  padding-bottom: 4px;
 }
 
 .appgrid {
@@ -185,36 +297,48 @@ button:hover { background: #383838; }
   </div>
 
   <!-- 잠금 화면 -->
-  <section id="lock" class="screen active lock">
-    <div class="muted">10월 23일</div>
-    <div class="clock">09:41</div>
-    <p class="muted">이혁재의 휴대폰</p>
-    <p class="muted">화면을 눌러 잠금 해제</p>
-    <button class="wide" onclick="show('unlock')">잠금 해제</button>
-  </section>
+ <div id="lock-screen" class="lock-screen">
+  <div class="status-bar">
+    <span>●</span>
+    <span>LTE　 Wi-Fi　 ▰</span>
+  </div>
 
-  <!-- 비밀번호 화면 -->
-  <section id="unlock" class="screen">
-    <h2>암호 입력</h2>
-    <p class="muted">힌트: 내 새끼 생일♡</p>
-    <div id="pinDisplay">○ ○ ○ ○</div>
+  <div class="lock-content">
+    <p class="lock-date">10월 15일</p>
+    <h1 class="lock-title">암호 입력</h1>
+    <p class="lock-hint">내 새끼 생일♡</p>
 
-    <div class="pin">
-      <button onclick="addPin('1')">1</button>
-      <button onclick="addPin('2')">2</button>
-      <button onclick="addPin('3')">3</button>
-      <button onclick="addPin('4')">4</button>
-      <button onclick="addPin('5')">5</button>
-      <button onclick="addPin('6')">6</button>
-      <button onclick="addPin('7')">7</button>
-      <button onclick="addPin('8')">8</button>
-      <button onclick="addPin('9')">9</button>
-      <button onclick="clearPin()">지우기</button>
-      <button onclick="addPin('0')">0</button>
-      <button onclick="checkPin()">확인</button>
+    <div class="pin-dots" id="pin-dots">
+      <span class="pin-dot"></span>
+      <span class="pin-dot"></span>
+      <span class="pin-dot"></span>
+      <span class="pin-dot"></span>
     </div>
-    <p id="pinMessage" class="muted"></p>
-  </section>
+
+    <p id="pin-message" class="pin-message">암호를 입력하세요</p>
+
+    <div class="keypad">
+      <button onclick="pressPin('1')">1</button>
+      <button onclick="pressPin('2')">2</button>
+      <button onclick="pressPin('3')">3</button>
+      <button onclick="pressPin('4')">4</button>
+      <button onclick="pressPin('5')">5</button>
+      <button onclick="pressPin('6')">6</button>
+      <button onclick="pressPin('7')">7</button>
+      <button onclick="pressPin('8')">8</button>
+      <button onclick="pressPin('9')">9</button>
+      <span class="key-empty"></span>
+      <button onclick="pressPin('0')">0</button>
+      <button class="delete-key" onclick="deletePin()">⌫</button>
+    </div>
+  </div>
+
+  <div class="lock-footer">
+    <span>긴급 전화</span>
+    <span>◉</span>
+  </div>
+</div>
+
 
   <!-- 홈 화면 -->
   <section id="home" class="screen">
