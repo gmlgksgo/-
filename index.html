@@ -47,49 +47,58 @@ h2 { font-size: 19px; }
 
 /* 잠금 화면 */
 .lock-screen {
-  min-height: 590px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px 0 8px;
-  text-align: center;
+  min-height: 0;
+  height: auto;
+  justify-content: flex-start;
+  padding: 12px 0 8px;
 }
 
 .lock-content {
-  width: 100%;
-  max-width: 280px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .lock-clock {
-  font-size: 68px;
-  font-weight: 300;
-  letter-spacing: -3px;
-  line-height: 1.1;
-  color: #f5f5f7;
-  margin: 8px 0 10px;
-  font-variant-numeric: tabular-nums;
+  font-size: 54px;
+  margin: 0 0 4px;
 }
 
 .lock-date {
-  color: #d1d1d6;
-  font-size: 14px;
-  margin: 0 0 12px;
+  margin-bottom: 8px;
+}
+
+.lock-title {
+  margin: 0 0 8px;
+}
+
+.lock-hint {
+  margin-bottom: 14px;
 }
 
 .lock-notification {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  padding: 13px;
-  margin: 0 0 22px;
-  text-align: left;
-  background: rgba(55, 55, 60, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 17px;
-  color: #f5f5f7;
+  margin-bottom: 14px;
+  padding: 10px;
+}
+
+.pin-dots {
+  margin-bottom: 10px;
+}
+
+.pin-message {
+  margin-bottom: 12px;
+}
+
+.keypad {
+  gap: 8px;
+}
+
+.keypad button,
+.keypad .key-empty {
+  width: 56px;
+  height: 56px;
+}
+
+.lock-footer {
+  margin-top: 12px;
 }
 
 .notification-icon {
