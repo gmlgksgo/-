@@ -45,141 +45,100 @@ h2 { font-size: 19px; }
 .screen { display: none; }
 .screen.active { display: block; }
 
-
-/* 잠금화면*/
+/* 잠금 화면 */
 .lock-screen {
-  min-height: 0;
-  height: auto;
-  justify-content: flex-start;
-  padding: 12px 0 8px;
+  min-height: 590px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0 8px;
+  text-align: center;
 }
 
 .lock-content {
-  margin: 0 auto;
-}
-
-.lock-clock {
-  font-size: 54px;
-  margin: 0 0 4px;
+  width: 100%;
+  max-width: 280px;
+  margin: auto;
 }
 
 .lock-date {
-  margin-bottom: 8px;
-}
-
-.lock-title {
-  margin: 0 0 8px;
-}
-
-.lock-hint {
-  margin-bottom: 14px;
-}
-
-.lock-notification {
-  margin-bottom: 14px;
-  padding: 10px;
-}
-
-.pin-dots {
-  margin-bottom: 10px;
-}
-
-.pin-message {
+  color: #aaa;
+  font-size: 14px;
   margin-bottom: 12px;
 }
 
-.keypad {
-  gap: 8px;
+.lock-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 12px;
 }
 
-.keypad button,
-.keypad .key-empty {
-  width: 56px;
-  height: 56px;
+.lock-hint {
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 28px;
+}
+
+.pin-dots {
+  display: flex;
+  justify-content: center;
+  gap: 17px;
+  margin-bottom: 15px;
+}
+
+.pin-dot {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+}
+
+.pin-dot.filled { background: #eee; }
+
+.pin-message {
+  min-height: 18px;
+  margin-bottom: 20px;
+  color: #888;
+  font-size: 12px;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  gap: 12px 8px;
+}
+
+.keypad button {
+  width: 66px;
+  height: 66px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #292a2e;
+  color: #f7f7f8;
+  font-size: 26px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+}
+
+.keypad button:hover { background: #414247; }
+.keypad button:active { transform: scale(.95); }
+.keypad .key-empty { width: 66px; height: 66px; }
+
+.keypad .delete-key {
+  background: transparent;
+  font-size: 23px;
 }
 
 .lock-footer {
-  margin-top: 12px;
-}
-
-/* 잠금화면 시계 */
-.lock-clock {
-  font-size: 68px;
-  font-weight: 300;
-  letter-spacing: -3px;
-  line-height: 1.1;
-  color: #f5f5f7;
-  margin: 8px 0 10px;
-  font-variant-numeric: tabular-nums;
-}
-
-.lock-date {
-  color: #d1d1d6;
-  font-size: 14px;
-  margin: 0 0 12px;
-}
-
-/* 잠금화면 메시지 알림 */
-.lock-notification {
   width: 100%;
   display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  padding: 13px;
-  margin: 0 0 22px;
-  text-align: left;
-  background: rgba(55, 55, 60, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 17px;
-  color: #f5f5f7;
-}
-
-.notification-icon {
-  flex: 0 0 32px;
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #414b59;
-  font-size: 18px;
-}
-
-.notification-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.notification-top {
-  display: flex;
   justify-content: space-between;
-  gap: 6px;
-  color: #c7c7cc;
-  font-size: 11px;
-  margin-bottom: 5px;
-}
-
-.notification-title {
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.notification-text {
-  color: #dedee3;
+  color: #888;
   font-size: 12px;
-  line-height: 1.5;
-}
-
-@media (max-width: 380px) {
-  .lock-clock {
-    font-size: 60px;
-  }
-
-  .lock-notification {
-    padding: 11px;
-  }
+  padding: 10px 4px 0;
 }
 
 .muted {
@@ -209,7 +168,6 @@ button:hover { background-color: #383838; }
   margin-top: 30px;
 }
 
-
 .app {
   min-height: 85px;
   display: flex;
@@ -217,27 +175,14 @@ button:hover { background-color: #383838; }
   align-items: center;
   justify-content: center;
   gap: 9px;
-  background: #202020;
-  color: #eeeeee;
-  border: 1px solid #444444;
-  border-radius: 18px;
+  background: #1b1b1b;
+  color: #eee;
+  border: 1px solid #292929;
+  border-radius: 15px;
   font-size: 12px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
 }
 
-.app span {
-  display: block;
-  color: #eeeeee;
-  font-size: 27px;
-  line-height: 1.2;
-}
-
-.app:hover {
-  background: #2a2a2a;
-  border-color: #666666;
-}
+.app span { font-size: 25px; }
 
 .lock-return {
   display: flex;
@@ -245,30 +190,21 @@ button:hover { background-color: #383838; }
   align-items: center;
   justify-content: center;
   gap: 8px;
-  width: 85px;
-  min-height: 85px;
-  margin: 0;
-  padding: 8px 0;
-  border: 1px solid transparent;
-  border-radius: 18px;
+  width: 80px;
+  margin: 18px auto;
+  padding: 10px 0;
+  border: none;
   background: transparent;
-  color: #eeeeee;
-  cursor: pointer;
+  color: #999;
 }
 
 .lock-return span:first-child {
-  font-size: 27px;
-  line-height: 1.2;
+  font-size: 38px;
+  line-height: 1;
 }
 
-.lock-return span:last-child {
-  font-size: 12px;
-}
-
-.lock-return:hover {
-  background: #202020;
-  border-color: #444444;
-}
+.lock-return span:last-child { font-size: 12px; }
+.lock-return:hover { color: #fff; background: transparent; }
 
 .panel {
   display: table;
