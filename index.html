@@ -391,6 +391,40 @@ h2 { font-size: 19px; }
     height: 48px;
   }
 }
+  .preview-screen {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.passcode-screen {
+  display: none;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.tap-hint {
+  color: #aaa;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+#lock-screen.passcode-open .preview-screen {
+  display: none;
+}
+
+#lock-screen.passcode-open .passcode-screen {
+  display: block;
+}
+
 </style>
 </head>
 
@@ -465,41 +499,6 @@ h2 { font-size: 19px; }
       <span>◉</span>
     </div>
   </div>
-
-  
-.preview-screen {
-  display: flex;
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-}
-
-.passcode-screen {
-  display: none;
-  width: 100%;
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  text-align: center;
-}
-
-.tap-hint {
-  color: #aaa;
-  font-size: 12px;
-  margin-top: 20px;
-}
-
-#lock-screen.passcode-open .preview-screen {
-  display: none;
-}
-
-#lock-screen.passcode-open .passcode-screen {
-  display: block;
-}
 
   <!-- 홈 화면 -->
   <section id="home" class="screen">
