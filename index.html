@@ -764,14 +764,14 @@ function updateClock() {
   document.getElementById("lock-clock").textContent = timeText;
   document.getElementById("status-time").textContent = timeText;
 }
-
-updateClock();
-setInterval(updateClock, 1000);
   
-function openPasscode() {
+  function openPasscode() {
   document.getElementById("lock-screen")
     .classList.add("passcode-open");
 }
+
+updateClock();
+setInterval(updateClock, 1000);
 
 </script>
 
