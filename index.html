@@ -102,6 +102,85 @@ h2 { font-size: 19px; }
   margin-top: 12px;
 }
 
+/* 잠금화면 시계 */
+.lock-clock {
+  font-size: 68px;
+  font-weight: 300;
+  letter-spacing: -3px;
+  line-height: 1.1;
+  color: #f5f5f7;
+  margin: 8px 0 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.lock-date {
+  color: #d1d1d6;
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+
+/* 잠금화면 메시지 알림 */
+.lock-notification {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 13px;
+  margin: 0 0 22px;
+  text-align: left;
+  background: rgba(55, 55, 60, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 17px;
+  color: #f5f5f7;
+}
+
+.notification-icon {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #414b59;
+  font-size: 18px;
+}
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  color: #c7c7cc;
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+
+.notification-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.notification-text {
+  color: #dedee3;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 380px) {
+  .lock-clock {
+    font-size: 60px;
+  }
+
+  .lock-notification {
+    padding: 11px;
+  }
+}
 
 .muted {
   color: #888;
