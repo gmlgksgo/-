@@ -748,8 +748,10 @@ function backToLock() {
     screen.classList.remove("active");
   });
 
-  document.getElementById("lock-screen")
-  .classList.remove("passcode-open");
+  const lockScreen = document.getElementById("lock-screen");
+
+  lockScreen.classList.remove("passcode-open");
+  lockScreen.style.display = "flex";
 }
 
 function updateClock() {
