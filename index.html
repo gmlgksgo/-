@@ -62,10 +62,82 @@ h2 { font-size: 19px; }
   margin: auto;
 }
 
+.lock-clock {
+  font-size: 68px;
+  font-weight: 300;
+  letter-spacing: -3px;
+  line-height: 1.1;
+  color: #f5f5f7;
+  margin: 8px 0 10px;
+  font-variant-numeric: tabular-nums;
+}
+
 .lock-date {
-  color: #aaa;
+  color: #d1d1d6;
   font-size: 14px;
-  margin-bottom: 12px;
+  margin: 0 0 12px;
+}
+
+.lock-notification {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 13px;
+  margin: 0 0 22px;
+  text-align: left;
+  background: rgba(55, 55, 60, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 17px;
+  color: #f5f5f7;
+}
+
+.notification-icon {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #414b59;
+  font-size: 18px;
+}
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  color: #c7c7cc;
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+
+.notification-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.notification-text {
+  color: #dedee3;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 380px) {
+  .lock-clock {
+    font-size: 60px;
+  }
+
+  .lock-notification {
+    padding: 11px;
+  }
 }
 
 .lock-title {
@@ -198,22 +270,6 @@ button:hover { background-color: #383838; }
   border-color: #666666;
 }
 
-
-.lock-return {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 80px;
-  margin: 18px auto;
-  padding: 10px 0;
-  border: none;
-  background: transparent;
-  color: #999;
-}
-
-
 .lock-return {
   display: flex;
   flex-direction: column;
@@ -232,7 +288,7 @@ button:hover { background-color: #383838; }
 }
 
 .lock-return span:first-child {
-  font-size: 38px;
+  font-size: 27px;
   line-height: 1.2;
 }
 
@@ -311,9 +367,25 @@ button:hover { background-color: #383838; }
   <!-- 잠금 화면 -->
   <div id="lock-screen" class="lock-screen">
     <div class="lock-content">
-      <p class="lock-date">10월 15일</p>
-      <h1 class="lock-title">암호 입력</h1>
-      <p class="lock-hint">내 새끼 생일♡</p>
+     
+<div class="lock-clock" id="lock-clock">9:41</div>
+<p class="lock-date">10월 21일</p>
+<h1 class="lock-title">암호 입력</h1>
+<p class="lock-hint">내 새끼 생일♡</p>
+
+<div class="lock-notification">
+  <div class="notification-icon">✉</div>
+  <div class="notification-content">
+    <div class="notification-top">
+      <span>메시지 · SJ 이동핵</span>
+      <span>지금</span>
+    </div>
+    <div class="notification-title">동해</div>
+    <div class="notification-text">
+      혁아! 머해 ㅎ
+    </div>
+  </div>
+</div>
 
       <div class="pin-dots" id="pin-dots">
         <span class="pin-dot"></span>
@@ -497,8 +569,22 @@ button:hover { background-color: #383838; }
 </div>
 
 <script>
-let enteredPin = "";
-let pinLocked = false;
+
+function updateLockClock() {
+  const clock = document.getElementById("lock-clock");
+  if (!clock) return;
+
+  const now = new Date();
+
+  clock.textContent = now.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: false
+  });
+}
+
+updateLockClock();
+setInterval(updateLockClock, 1000);
 
 function updatePinDots() {
   document.querySelectorAll(".pin-dot").forEach((dot, index) => {
