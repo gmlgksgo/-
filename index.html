@@ -279,6 +279,23 @@ button:hover {
     width: 100%;
     padding: 18px 14px;
   }
+  
+  .lock-return {
+  display: block;
+  margin: 18px auto 0;
+  padding: 8px 14px;
+  border: 1px solid #444;
+  border-radius: 20px;
+  background: transparent;
+  color: #999;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.lock-return:hover {
+  background: #222;
+  color: #fff;
+}
 }
 </style>
 </head>
@@ -353,6 +370,9 @@ button:hover {
       </button>
       <button class="app" onclick="show('calendar')">
         <span>▦</span>달력
+      </button>
+      <button class="lock-return" onclick="backToLock()">
+       <span>♧</span>잠금화면으로 돌아가기
       </button>
     </div>
   </section>
@@ -556,6 +576,12 @@ function show(screenId) {
   if (target) {
     target.classList.add("active");
   }
+  
+  function backToLock() {
+  enteredPin = "";
+  updatePinDots();
+  show("lock-screen");
+}
 }
 </script>
 
