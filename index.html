@@ -733,16 +733,15 @@ function show(screenId) {
   }
 }
 
+
 function backToLock() {
-  if (pinTimer !== null) {
+  if (typeof pinTimer !== "undefined" && pinTimer !== null) {
     clearTimeout(pinTimer);
     pinTimer = null;
   }
 
   enteredPin = "";
   pinLocked = false;
-  updatePinDots();
-  setPinMessage("암호를 입력하세요");
 
   document.querySelectorAll(".screen").forEach(screen => {
     screen.classList.remove("active");
@@ -750,9 +749,23 @@ function backToLock() {
 
   const lockScreen = document.getElementById("lock-screen");
 
-  lockScreen.classList.remove("passcode-open");
-  lockScreen.style.display = "flex";
+  if (lockScreen) {
+    lockScreen.style.display = "flex";
+    lockScreen.classList.remove("passcode-open");
+
+    const preview = document.getElementById("preview-screen");
+    const passcode = document.getElementById("passcode-screen");
+
+    if (preview) preview.style.display = "flex";
+    if (passcode) passcode.style.display = "none";
+  }
+
+  if (typeof updatePinDots === "function") updatePinDots();
+  if (typeof setPinMessage === "function") {
+    setPinMessage("암호를 입력하세요");
+  }
 }
+
 
 function updateClock() {
   const now = new Date();
