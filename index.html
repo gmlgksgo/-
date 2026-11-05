@@ -1,613 +1,643 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080808">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#090a0e">
 <title>이혁재의 휴대폰</title>
-
 <style>
-* { box-sizing: border-box; }
 
+:root {
+  color-scheme:dark;
+  --text:#f5f5f7;
+  --muted:#9699a3;
+  --blue:#0a84ff;
+  --line:rgba(255,255,255,.09)}
+
+* {
+  box-sizing:border-box}
+html,body {
+  margin:0;
+  min-height:100%}
 body {
-  margin: 0;
-  min-height: 100vh;
-  background: #080808;
-  color: #eee;
-  font-family: -apple-system, BlinkMacSystemFont, Arial,
-    "Malgun Gothic", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px;
-}
-
+  min-height:100vh;
+  padding:14px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(ellipse at 50% 15%,#252630 0%,#111219 42%,#07080b 78%);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Arial,"Malgun Gothic",sans-serif}
 button {
-  font: inherit;
-  cursor: pointer;
-  color: inherit;
-}
+  font:inherit;
+  color:inherit;
+  cursor:pointer}
 
 .phone {
-  width: 100%;
-  max-width: 390px;
-  height: min(850px, 96dvh);
-  min-height: 600px;
-  background: #101010;
-  border: 2px solid #383838;
-  border-radius: 35px;
-  padding: 12px 18px 18px;
-  box-shadow: 0 0 40px #000;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
+  position:relative;
+  isolation:isolate;
+  width:min(100%,402px);
+  height:min(870px,96dvh);
+  min-height:610px;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border:1px solid #55565e;
+  border-radius:43px;
+  background:#090a0e;
+  box-shadow:0 28px 90px #000b,inset 0 0 0 5px #17181e}
+.phone:before {
+  content:"";
+  position:absolute;
+  z-index:20;
+  top:9px;
+  left:50%;
+  width:112px;
+  height:30px;
+  transform:translateX(-50%);
+  border-radius:20px;
+  background:#020203;
+  border:1px solid #ffffff0d;
+  pointer-events:none}
 
 .status {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 4px 14px;
-  color: #eee;
-  font-size: 12px;
-}
+  position:relative;
+  z-index:21;
+  height:49px;
+  flex:0 0 49px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:7px 27px 0;
+  font-size:12px;
+  font-weight:650;
+  color:#fff;
+  pointer-events:none}
+.status-icons {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px}
+.signal {
+  letter-spacing:-2px}
+.battery {
+  width:19px;
+  height:10px;
+  border:1px solid #eee;
+  border-radius:3px;
+  position:relative}
+.battery:before {
+  content:"";
+  position:absolute;
+  inset:2px;
+  background:#eee;
+  border-radius:1px}
+.battery:after {
+  content:"";
+  position:absolute;
+  right:-3px;
+  top:2px;
+  width:2px;
+  height:4px;
+  background:#eee;
+  border-radius:0 2px 2px 0}
 
-.status-icons { letter-spacing: 2px; }
-
+.screen,.lock-screen {
+  flex:1;
+  min-height:0;
+  overflow:hidden}
 .screen {
-  display: none;
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #444 transparent;
-}
+  display:none;
+  flex-direction:column;
+  background:#101116;
+  padding:17px 20px 16px}
+.screen.active {
+  display:flex}
+.screen-scroll {
+  min-height:0;
+  overflow-y:auto;
+  flex:1;
+  scrollbar-width:none;
+  padding-bottom:12px}
+.screen-scroll::-webkit-scrollbar {
+  display:none}
 
-.screen.active { display: block; }
-
-/* 잠금 화면 */
 .lock-screen {
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  text-align: center;
-  padding: 0 3px 10px;
-  background: radial-gradient(
-    ellipse at 50% 5%,
-    #292929 0%,
-    #151515 48%,
-    #101010 100%
-  );
-  border-radius: 18px;
-}
-
-/* 처음 보이는 잠금 미리보기 */
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  text-align:center;
+  padding:0 19px 18px;
+  background:linear-gradient(#0508102e,#05081047),radial-gradient(ellipse at 50% 28%,#4a5062 0%,#252c3d 34%,#141a29 66%,#090d17 100%)}
+.lock-screen:before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at 18% 55%,#99a4be29,transparent 38%),radial-gradient(ellipse at 85% 74%,#7889b31f,transparent 35%);
+  pointer-events:none}
 .preview-screen {
-  display: flex;
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  text-align: center;
-  padding: 35px 8px 15px;
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-}
-
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex:1;
+  min-height:0;
+  width:100%;
+  flex-direction:column;
+  align-items:center;
+  padding:61px 0 12px;
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none}
 .lock-content {
-  width: 100%;
-  max-width: 290px;
-  margin: 0 auto;
-}
-
+  width:100%;
+  max-width:310px;
+  margin:0 auto}
 .lock-clock {
-  font-size: clamp(58px, 16vw, 76px);
-  font-weight: 300;
-  letter-spacing: -4px;
-  line-height: 1.1;
-  color: #f5f5f7;
-  margin: 0 0 7px;
-  font-variant-numeric: tabular-nums;
-}
-
+  font-size:clamp(66px,17vw,82px);
+  font-weight:250;
+  letter-spacing:-5px;
+  line-height:1.02;
+  color:#fff;
+  font-variant-numeric:tabular-nums}
 .lock-date {
-  color: #d1d1d6;
-  font-size: 14px;
-  margin: 0 0 28px;
-}
-
+  color:#ffffffe6;
+  font-size:15px;
+  font-weight:550;
+  margin:7px 0 35px}
 .lock-notification {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 12px;
-  margin: 0 0 17px;
-  text-align: left;
-  background: #303034;
-  border: 1px solid #414146;
-  border-radius: 16px;
-  color: #f5f5f7;
-}
-
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  gap:11px;
+  padding:13px 14px;
+  margin:0 0 13px;
+  text-align:left;
+  background:#2c2e36c7;
+  border:1px solid #ffffff21;
+  border-radius:19px;
+  color:#fff;
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  box-shadow:0 8px 25px #0002}
 .notification-icon {
-  flex: 0 0 32px;
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #526b8b;
-  font-size: 18px;
-}
-
+  flex:0 0 34px;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#4d9bfa,#1767d1);
+  font-size:18px}
 .notification-content {
-  flex: 1;
-  min-width: 0;
-}
-
+  flex:1;
+  min-width:0}
 .notification-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 5px;
-  color: #c7c7cc;
-  font-size: 10px;
-  margin-bottom: 4px;
-}
-
+  display:flex;
+  justify-content:space-between;
+  gap:5px;
+  color:#d0d0d5;
+  font-size:10px;
+  margin-bottom:4px}
 .notification-title {
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 3px;
-}
-
+  font-size:13px;
+  font-weight:650;
+  margin-bottom:3px}
 .notification-text {
-  color: #dedee3;
-  font-size: 11px;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-
+  color:#f0f0f3;
+  font-size:12px;
+  line-height:1.45;
+  overflow-wrap:anywhere}
 .tap-hint {
-  color: #aaa;
-  font-size: 12px;
-  margin-top: 25px;
-}
-
-/* 암호 화면 */
-.passcode-screen {
-  display: none;
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  overflow-y: auto;
-  text-align: center;
-  padding: 35px 5px 10px;
-}
-
-#lock-screen.passcode-open .preview-screen {
-  display: none;
-}
-
-#lock-screen.passcode-open .passcode-screen {
-  display: block;
-}
-
-.lock-title {
-  font-size: 22px;
-  font-weight: 500;
-  margin: 0 0 7px;
-}
-
-.lock-hint {
-  color: #aaa;
-  font-size: 12px;
-  margin: 0 0 18px;
-}
-
-.pin-dots {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin: 0 0 10px;
-}
-
-.pin-dot {
-  width: 9px;
-  height: 9px;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-}
-
-.pin-dot.filled { background: #eee; }
-
-.pin-message {
-  min-height: 16px;
-  margin: 0 0 12px;
-  color: #aaa;
-  font-size: 11px;
-}
-
-.keypad {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  gap: 9px;
-  width: 100%;
-  max-width: 250px;
-  margin: 0 auto;
-}
-
-.keypad button {
-  width: 58px;
-  height: 58px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: #292a2e;
-  color: #f7f7f8;
-  font-size: 24px;
-  font-weight: 400;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.keypad button:active {
-  background: #505156;
-  transform: scale(.94);
-}
-
-.keypad .key-empty {
-  width: 58px;
-  height: 58px;
-}
-
-.keypad .delete-key {
-  background: transparent;
-  font-size: 22px;
-}
-
+  color:#ffffffd9;
+  font-size:12px;
+  margin-top:23px;
+  text-shadow:0 1px 5px #000}
 .lock-footer {
-  flex-shrink: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #888;
-  font-size: 11px;
-  padding: 10px 8px 0;
-  margin-top: auto;
-}
+  position:relative;
+  z-index:1;
+  flex-shrink:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:#fff;
+  font-size:11px;
+  padding:12px 8px 2px;
+  margin-top:auto}
+.lock-footer span:last-child {
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  border:1px solid #ffffff59;
+  border-radius:50%;
+  background:#ffffff1f;
+  font-size:17px}
 
-/* 홈 화면과 앱 */
+.passcode-screen {
+  position:relative;
+  z-index:2;
+  display:none;
+  flex:1;
+  min-height:0;
+  width:100%;
+  overflow-y:auto;
+  text-align:center;
+  padding:62px 5px 15px}
+#lock-screen.passcode-open .preview-screen {
+  display:none}
+#lock-screen.passcode-open .passcode-screen {
+  display:block}
+.lock-title {
+  font-size:22px;
+  font-weight:600;
+  margin:0 0 8px}
+.lock-hint {
+  color:#ffffffbf;
+  font-size:12px;
+  margin:0 0 22px}
+.pin-dots {
+  display:flex;
+  justify-content:center;
+  gap:17px;
+  margin:0 0 12px}
+.pin-dot {
+  width:9px;
+  height:9px;
+  border:1px solid #fff;
+  border-radius:50%}
+.pin-dot.filled {
+  background:#fff}
+.pin-message {
+  min-height:17px;
+  margin:0 0 17px;
+  color:#ffffffcc;
+  font-size:11px}
+.keypad {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  justify-items:center;
+  gap:10px;
+  width:100%;
+  max-width:250px;
+  margin:0 auto}
+.keypad button,.keypad .key-empty {
+  width:62px;
+  height:62px;
+  padding:0;
+  border:0;
+  border-radius:50%}
+.keypad button {
+  background:#f5f6fa2b;
+  color:#fff;
+  font-size:25px;
+  font-weight:400;
+  backdrop-filter:blur(8px);
+  -webkit-tap-highlight-color:transparent}
+.keypad button:active {
+  background:#ffffff57;
+  transform:scale(.94)}
+.keypad .delete-key {
+  background:transparent;
+  font-size:22px}
+
+.home-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:4px 0 22px}
+.home-top .muted {
+  margin:0}
+.profile-dot {
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#30333d;
+  border:1px solid var(--line)}
+h1 {
+  font-size:27px;
+  letter-spacing:-.8px;
+  margin:0 0 8px;
+  font-weight:700}
+h2 {
+  font-size:21px;
+  letter-spacing:-.5px;
+  margin:4px 0 7px;
+  font-weight:700}
 .muted {
-  color: #999;
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-h1 { font-size: 25px; }
-h2 { font-size: 19px; }
-
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7}
 .appgrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 25px;
-}
-
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px 12px;
+  margin-top:29px}
 .app {
-  min-height: 85px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  background: #202020;
-  color: #eee;
-  border: 1px solid #444;
-  border-radius: 17px;
-  font-size: 12px;
-}
-
+  min-height:92px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border:0;
+  border-radius:19px;
+  background:transparent;
+  color:#eee;
+  font-size:11px;
+  font-weight:500;
+  -webkit-tap-highlight-color:transparent}
 .app span {
-  display: block;
-  color: #eee;
-  font-size: 27px;
-  line-height: 1.2;
-}
-
-.app:hover { background: #2b2b2b; }
-
+  width:57px;
+  height:57px;
+  display:grid;
+  place-items:center;
+  border-radius:16px;
+  color:#fff;
+  font-size:28px;
+  background:linear-gradient(145deg,#525763,#292d36);
+  box-shadow:0 5px 13px #0005,inset 0 1px 1px #ffffff26}
+.app:nth-child(1) span {
+  background:linear-gradient(145deg,#65c9ff,#1685e8)}
+.app:nth-child(2) span {
+  background:linear-gradient(145deg,#e5b7a5,#a95b70)}
+.app:nth-child(3) span {
+  background:linear-gradient(145deg,#f3d16e,#bc8a28)}
+.app:nth-child(4) span {
+  background:linear-gradient(145deg,#82d58c,#269a58)}
+.app:nth-child(5) span {
+  background:linear-gradient(145deg,#e9e9ed,#9b9da6);
+  color:#34363d}
+.app:active,.lock-return:active {
+  transform:scale(.96)}
 .lock-return {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  width: 85px;
-  min-height: 85px;
-  margin: 0;
-  padding: 8px 0;
-  border: 1px solid transparent;
-  border-radius: 17px;
-  background: transparent;
-  color: #eee;
-  font-size: 12px;
-}
-
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:92px;
+  border:0;
+  border-radius:19px;
+  background:transparent;
+  color:#eee;
+  font-size:11px}
 .lock-return .return-icon {
-  font-size: 36px;
-  line-height: 1.2;
-}
+  width:57px;
+  height:57px;
+  display:grid;
+  place-items:center;
+  border-radius:16px;
+  background:linear-gradient(145deg,#62636c,#343640);
+  font-size:29px;
+  box-shadow:0 5px 13px #0005}
+.dock {
+  flex:0 0 auto;
+  display:flex;
+  justify-content:center;
+  gap:13px;
+  margin:17px -4px 0;
+  padding:11px 12px;
+  border-radius:24px;
+  background:#5557603d;
+  border:1px solid #ffffff0f}
+.dock-item {
+  width:48px;
+  height:48px;
+  border:0;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  font-size:23px;
+  background:linear-gradient(145deg,#4c505a,#252832)}
+.dock-item:first-child {
+  background:linear-gradient(145deg,#6ec8ff,#1685e8)}
+.dock-item:nth-child(2) {
+  background:linear-gradient(145deg,#72d58b,#219a58)}
+.dock-item:nth-child(3) {
+  background:linear-gradient(145deg,#e9c66d,#b27c23)}
+.dock-item:active {
+  transform:scale(.94)}
 
-.lock-return:hover { background: #202020; }
-
-.wide {
-  width: 100%;
-  margin-top: 16px;
-  padding: 11px;
-  border: 1px solid #444;
-  border-radius: 11px;
-  background: #202020;
-  color: #eee;
-}
-
-.panel {
-  display: table;
-  width: fit-content;
-  max-width: 92%;
-  background: #191919;
-  border: 1px solid #292929;
-  border-radius: 16px;
-  padding: 10px 13px;
-  margin: 8px 0;
-  line-height: 1.6;
-  font-size: 13px;
-  overflow-wrap: anywhere;
-}
-
-.received { margin-right: auto; }
-
-.sent {
-  margin-left: auto;
-  background: #282828;
-}
-
+.app-header {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:38px;
+  margin:0 0 13px}
+.back {
+  border:0;
+  background:transparent;
+  color:var(--blue);
+  font-size:14px;
+  padding:7px 2px 7px 0;
+  font-weight:500}
+.app-header h2 {
+  margin:0;
+  flex:1}
+.header-action {
+  color:var(--blue);
+  font-size:13px}
+.section-caption {
+  color:var(--muted);
+  font-size:12px;
+  margin:0 0 14px}
 .date {
-  color: #777;
-  font-size: 11px;
-  text-align: center;
-  margin: 20px 0 10px;
-}
-
+  color:#9296a1;
+  font-size:11px;
+  text-align:center;
+  margin:20px 0 11px}
+.chat-area {
+  display:flex;
+  flex-direction:column;
+  gap:2px}
+.panel {
+  display:table;
+  width:fit-content;
+  max-width:88%;
+  background:#292b33;
+  border:1px solid #ffffff09;
+  border-radius:17px;
+  padding:10px 13px;
+  margin:4px 0;
+  line-height:1.55;
+  font-size:13px;
+  overflow-wrap:anywhere}
+.received {
+  margin-right:auto;
+  border-bottom-left-radius:6px}
+.sent {
+  margin-left:auto;
+  background:#1769c2;
+  color:#fff;
+  border-color:#ffffff0f;
+  border-bottom-right-radius:6px}
 .note {
-  border-left: 2px solid #777;
-  padding-left: 12px;
-  margin: 20px 0;
-  line-height: 1.9;
-  white-space: pre-line;
-  font-size: 14px;
-}
-
+  background:#1d1f25;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:16px 15px;
+  margin:14px 0;
+  line-height:1.9;
+  white-space:pre-line;
+  font-size:13px;
+  color:#e7e7eb}
+.note b {
+  display:block;
+  margin-bottom:9px;
+  color:#fff;
+  font-size:14px}
 .photo {
-  min-height: 125px;
-  background: linear-gradient(145deg, #353535, #111);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  margin-bottom: 8px;
-  color: #ccc;
-  text-align: center;
-  padding: 10px;
+  min-height:155px;
+  background:linear-gradient(145deg,#454b59,#202630 55%,#12151d);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:9px;
+  border-radius:17px;
+  margin:13px 0 8px;
+  color:#d7d9e0;
+  text-align:center;
+  padding:14px;
+  font-size:13px;
+  border:1px solid var(--line)}
+.wide {
+  flex:0 0 auto;
+  width:100%;
+  margin-top:14px;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:#252831;
+  color:#f5f5f7;
+  font-size:13px}
+.wide:active {
+  background:#343844}
+.call-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#1d1f25;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:14px;
+  margin:10px 0;
+  font-size:13px}
+.call-name {
+  font-weight:600;
+  margin-bottom:5px}
+.call-detail {
+  color:var(--muted);
+  font-size:11px}
+.call-mark {
+  color:#30d158;
+  font-size:18px}
+.calendar-card {
+  border-radius:17px;
+  padding:17px;
+  margin:13px 0;
+  background:linear-gradient(145deg,#282b35,#1b1d24);
+  border:1px solid var(--line)}
+.calendar-date {
+  color:#ff6961;
+  font-size:12px;
+  font-weight:650;
+  margin-bottom:8px}
+.calendar-day {
+  font-size:32px;
+  font-weight:700;
+  margin-bottom:12px}
+.home-indicator {
+  flex:0 0 auto;
+  align-self:center;
+  width:112px;
+  height:4px;
+  margin:8px 0 7px;
+  border-radius:10px;
+  background:#ffffffc7;
+  position:relative;
+  z-index:22;
+  pointer-events:none}
+
+@media(max-height:720px) {
+  body {
+  padding:5px}
+.phone {
+  height:98dvh;
+  min-height:0;
+  border-radius:35px}
+.preview-screen {
+  padding-top:48px}
+.lock-clock {
+  font-size:58px}
+.lock-date {
+  margin-bottom:20px}
+.lock-notification {
+  padding:10px 12px}
+.passcode-screen {
+  padding-top:45px}
+.keypad {
+  gap:7px}
+.keypad button,.keypad .key-empty {
+  width:52px;
+  height:52px}
+.appgrid {
+  gap:8px;
+  margin-top:17px}
+.app,.lock-return {
+  min-height:78px}
+.app span,.lock-return .return-icon {
+  width:49px;
+  height:49px}
 }
 
-@media (max-height: 720px) {
-  .phone {
-    height: 96dvh;
-    min-height: 0;
-  }
-
-  .preview-screen { padding-top: 22px; }
-  .lock-clock { font-size: 54px; }
-  .lock-date { margin-bottom: 17px; }
-  .lock-notification { margin-bottom: 10px; padding: 9px; }
-  .passcode-screen { padding-top: 20px; }
-  .keypad { gap: 6px; }
-
-  .keypad button,
-  .keypad .key-empty {
-    width: 50px;
-    height: 50px;
-  }
+@media(max-width:360px) {
+  body {
+  padding:0}
+.phone {
+  border-radius:0;
+  border:0;
+  height:100dvh;
+  min-height:0}
+.phone:before {
+  top:7px}
+.status {
+  padding-left:22px;
+  padding-right:22px}
 }
+
 </style>
 </head>
-
 <body>
 <div class="phone">
-
-  <div class="status">
-    <span id="status-time">9:41</span>
-    <span class="status-icons">● ● ● ▰</span>
-  </div>
-
-  <!-- 잠금 화면 -->
+  <div class="status"><span id="status-time">9:41</span><span class="status-icons"><span class="signal">●●●</span><span>⌁</span><span class="battery"></span></span></div>
   <div id="lock-screen" class="lock-screen">
+    <div id="preview-screen" class="preview-screen" onclick="openPasscode()"><div class="lock-content">
+      <div class="lock-clock" id="preview-clock">9:41</div><p class="lock-date" id="preview-date">10월 15일</p>
 
-    <!-- 처음 보이는 화면: 어디를 눌러도 암호 화면으로 이동 -->
-    <div id="preview-screen"
-         class="preview-screen"
-         onclick="openPasscode()">
-
-      <div class="lock-content">
-        <div class="lock-clock" id="preview-clock">9:41</div>
-        <p class="lock-date" id="preview-date">10월 15일</p>
-
-        <div class="lock-notification">
-          <div class="notification-icon">✉</div>
-
-          <div class="notification-content">
-            <div class="notification-top">
-              <span>메시지</span>
-              <span>지금</span>
-            </div>
-
-            <div class="notification-title">동해</div>
-            <div class="notification-text">
-              혁아! 머해? ㅎ
-            </div>
-          </div>
-        </div>
-
-        <p class="tap-hint">화면을 눌러 열기</p>
-      </div>
-    </div>
-
-    <!-- 암호 입력 화면 -->
-    <div id="passcode-screen" class="passcode-screen">
-
-      <h1 class="lock-title">암호 입력</h1>
-      <p class="lock-hint">내 새끼 생일♡</p>
-
-      <div class="pin-dots" id="pin-dots">
-        <span class="pin-dot"></span>
-        <span class="pin-dot"></span>
-        <span class="pin-dot"></span>
-        <span class="pin-dot"></span>
-      </div>
-
-      <p id="pin-message" class="pin-message">
-        암호를 입력하세요
-      </p>
-
-      <div class="keypad">
-        <button type="button" onclick="pressPin('1')">1</button>
-        <button type="button" onclick="pressPin('2')">2</button>
-        <button type="button" onclick="pressPin('3')">3</button>
-
-        <button type="button" onclick="pressPin('4')">4</button>
-        <button type="button" onclick="pressPin('5')">5</button>
-        <button type="button" onclick="pressPin('6')">6</button>
-
-        <button type="button" onclick="pressPin('7')">7</button>
-        <button type="button" onclick="pressPin('8')">8</button>
-        <button type="button" onclick="pressPin('9')">9</button>
-
-        <span class="key-empty"></span>
-        <button type="button" onclick="pressPin('0')">0</button>
-        <button type="button" class="delete-key"
-          onclick="deletePin()" aria-label="마지막 숫자 지우기">⌫</button>
-      </div>
-    </div>
-
-    <div class="lock-footer">
-      <span>긴급 전화</span>
-      <span>◉</span>
-    </div>
+            <div class="lock-notification"><div class="notification-icon">✉</div><div class="notification-content"><div class="notification-top"><span>메시지</span><span>지금</span></div><div class="notification-title">동해</div><div class="notification-text">혁아! 머해? ㅎ</div></div></div>
+      <p class="tap-hint">화면을 눌러 열기</p>
+    </div></div>
+    <div id="passcode-screen" class="passcode-screen"><h1 class="lock-title">암호 입력</h1><p class="lock-hint">내 새끼 생일♡</p>
+      <div class="pin-dots" id="pin-dots"><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span></div><p id="pin-message" class="pin-message">암호를 입력하세요</p>
+      <div class="keypad"><button type="button" onclick="pressPin('1')">1</button><button type="button" onclick="pressPin('2')">2</button><button type="button" onclick="pressPin('3')">3</button><button type="button" onclick="pressPin('4')">4</button><button type="button" onclick="pressPin('5')">5</button><button type="button" onclick="pressPin('6')">6</button><button type="button" onclick="pressPin('7')">7</button><button type="button" onclick="pressPin('8')">8</button><button type="button" onclick="pressPin('9')">9</button><span class="key-empty"></span><button type="button" onclick="pressPin('0')">0</button><button type="button" class="delete-key" onclick="deletePin()" aria-label="마지막 숫자 지우기">⌫</button></div>
+    </div><div class="lock-footer"><span>긴급 전화</span><span>◉</span></div>
   </div>
+  <section id="home" class="screen"><div class="screen-scroll"><div class="home-top"><p class="muted">이혁재의 휴대폰</p><span class="profile-dot">●</span></div><h1>좋은 아침입니다!</h1><p class="muted">마지막 잠금 해제: 오늘 오전 08:12</p>
+    <div class="appgrid"><button class="app" onclick="show('messages')"><span>✉</span>메시지</button><button class="app" onclick="show('photos')"><span>▧</span>사진</button><button class="app" onclick="show('notes')"><span>▤</span>메모</button><button class="app" onclick="show('calls')"><span>☎</span>통화 기록</button><button class="app" onclick="show('calendar')"><span>▦</span>달력</button><button class="lock-return" onclick="backToLock()"><span class="return-icon">♧</span><span>돌아가기</span></button></div>
+  </div><div class="dock"><button class="dock-item" aria-label="메시지" onclick="show('messages')">✉</button><button class="dock-item" aria-label="통화 기록" onclick="show('calls')">☎</button><button class="dock-item" aria-label="메모" onclick="show('notes')">▤</button></div></section>
+  <section id="messages" class="screen"><div class="app-header"><button class="back" onclick="show('home')">‹ 홈</button><h2>이동해</h2><span class="header-action">정보</span></div><div class="screen-scroll"><p class="section-caption">메시지</p><div class="date">10월 14일</div><div class="chat-area">
+    <div class="panel received">혁아 ! 내일 무슨 날이야 ?</div><div class="panel received">아무리 생각해도 기억이 안나네 ㅜ</div><div class="panel sent">미안, 바빠서 이제 봤네.</div><div class="panel sent">내일 네 생일이잖아.</div><div class="panel received">아 맞네 ㅎ</div><div class="panel received">미안해 !! 바쁠 시간에 귀찮게 해서 ㅜ</div><div class="panel sent">뭐가 미안해.</div><div class="panel sent">하나도 안 귀찮으니까</div><div class="panel sent">기억 안 나는 건 다 물어봐.</div></div><div class="date">10월 15일</div><div class="chat-area"><div class="panel sent">동해야 생일축하해.</div><div class="panel sent">올해도 고마워 내 사랑.</div><div class="panel sent">내년에도 잘 부탁해.</div><div class="panel received">혁재야 고마워 !</div><div class="panel received">근데 나 지금 여기가 어딘지 모르겟어 ㅜ</div><div class="panel received">우리 숙소 여기 아닌가 ?</div><div class="panel sent">전화부터받아.</div></div></div><button class="wide" onclick="show('home')">← 홈으로</button></section>
+  <section id="photos" class="screen"><div class="app-header"><button class="back" onclick="show('home')">‹ 홈</button><h2>사진</h2><span class="header-action">선택</span></div><div class="screen-scroll"><p class="section-caption">즐겨찾기 · 2장</p><div class="photo">🌊<span>바닷가에서 함께 찍은 사진</span></div><div class="panel">갑자기 바다가 보고 싶다던 너를 데리고 바로 바다를 갔었다. 전 날 늦게까지 촬영한 탓인지 얼마 안 지나 내 어깨에 기대어 잠들었는데, 깨우기가 아까워서 한참을 그대로 있었다.</div><div class="photo">♡<span>서로를 바라보는 두 사람</span></div><div class="panel">연습실에서 려욱이가 찍어줬던 사진. 사진을 보곤 내 눈빛이 느끼하다며 놀려대던 동해의 모습이 생생하다.</div></div><button class="wide" onclick="show('home')">← 홈으로</button></section>
 
-  <!-- 홈 화면 -->
-  <section id="home" class="screen">
-    <p class="muted">이혁재의 휴대폰</p>
-    <h1>좋은 아침입니다!</h1>
-    <p class="muted">마지막 잠금 해제: 오늘 오전 08:12</p>
-
-    <div class="appgrid">
-      <button class="app" onclick="show('messages')">
-        <span>✉</span>메시지
-      </button>
-
-      <button class="app" onclick="show('photos')">
-        <span>▧</span>사진
-      </button>
-
-      <button class="app" onclick="show('notes')">
-        <span>▤</span>메모
-      </button>
-
-      <button class="app" onclick="show('calls')">
-        <span>☎</span>통화 기록
-      </button>
-
-      <button class="app" onclick="show('calendar')">
-        <span>▦</span>달력
-      </button>
-
-      <button class="lock-return" onclick="backToLock()">
-        <span class="return-icon">♧</span>
-        <span>돌아가기</span>
-      </button>
-    </div>
-  </section>
-
-  <!-- 메시지 -->
-  <section id="messages" class="screen">
-    <h2>메시지 · 이동해</h2>
-    <p class="muted">최근 대화</p>
-
-    <div class="date">10월 14일</div>
-    <div class="panel received">혁아 ! 내일 무슨 날이야 ?</div>
-    <div class="panel received">아무리 생각해도 기억이 안나네 ㅜ</div>
-    <div class="panel sent">미안, 바빠서 이제 봤네.</div>
-    <div class="panel sent">내일 네 생일이잖아.</div>
-    <div class="panel received">아 맞네 ㅎ</div>
-    <div class="panel received">미안해 !! 바쁠 시간에 귀찮게 해서 ㅜ</div>
-    <div class="panel sent">뭐가 미안해.</div>
-    <div class="panel sent">하나도 안 귀찮으니까</div>
-    <div class="panel sent">기억 안 나는 건 다 물어봐.</div>
-
-    <div class="date">10월 15일</div>
-    <div class="panel sent">동해야 생일축하해.</div>
-    <div class="panel sent">올해도 고마워 내 사랑.</div>
-    <div class="panel sent">내년에도 잘 부탁해.</div>
-    <div class="panel received">혁재야 고마워 !</div>
-    <div class="panel received">근데 나 지금 여기가 어딘지 모르겟어 ㅜ</div>
-    <div class="panel received">우리 숙소 여기 아닌가 ?</div>
-    <div class="panel sent">전화부터받아.</div>
-
-    <button class="wide" onclick="show('home')">← 홈으로</button>
-  </section>
-
-  <!-- 사진 -->
-  <section id="photos" class="screen">
-    <h2>사진</h2>
-    <p class="muted">즐겨찾기 · 2장</p>
-
-    <div class="photo">🌊<br>바닷가에서 함께 찍은 사진</div>
-    <div class="panel">
-      갑자기 바다가 보고 싶다던 너를 데리고 바로 바다를 갔었다.
-      전 날 늦게까지 촬영한 탓인지 얼마 안 지나 내 어깨에 기대어
-      잠들었는데, 깨우기가 아까워서 한참을 그대로 있었다.
-    </div>
-
-    <div class="photo">♡<br>서로를 바라보는 두 사람</div>
-    <div class="panel">
-      연습실에서 려욱이가 찍어줬던 사진. 사진을 보곤 내 눈빛이
-      느끼하다며 놀려대던 동해의 모습이 생생하다.
-    </div>
-
-    <button class="wide" onclick="show('home')">← 홈으로</button>
-  </section>
-
-  <!-- 메모 -->
-  <section id="notes" class="screen">
-    <h2>메모</h2>
-    <p class="muted">고정된 메모 · 나만 보기</p>
-
-    <div class="note"><b>동해</b>
-동해가 이유없이 우울해 하는 날은 달달한 거 사주기.
+    <section id="notes" class="screen"><div class="app-header"><button class="back" onclick="show('home')">‹ 홈</button><h2>메모</h2><span class="header-action">편집</span></div><div class="screen-scroll"><p class="section-caption">고정된 메모 · 나만 보기</p>
+    <div class="note"><b>동해</b>동해가 이유없이 우울해 하는 날은 달달한 거 사주기.
 추위를 많이 타니까 꼭 겉옷 들고 다니기.
 잠들기 전에 사랑한다고 안하면 삐짐.
 미안해보다는 사랑해를 더 좋아하니까 많이 해주기.
@@ -619,24 +649,18 @@ h2 { font-size: 19px; }
 놓고 가는 거 없는 지 확인 해주기.
 
 동해가 기억 못해도 내가 챙겨주면 되니까.</div>
-
-    <div class="note"><b>9월 28일</b>
-오늘 동해가 우리 집을 낯설어했다.
+    <div class="note"><b>9월 28일</b>오늘 동해가 우리 집을 낯설어했다.
 여기가 어디냐고 물었다.
 집이라고 말해 주자 미안하다고 했다.
 
 네가 왜 미안해야 해.
 잘못한 건 아무것도 없는데.</div>
-
-    <div class="note"><b>10월 3일</b>
-동해가 오늘 내 이름을 세 번 물었다.
+    <div class="note"><b>10월 3일</b>동해가 오늘 내 이름을 세 번 물었다.
 미안해 하는 네 모습이 더 큰 상처였다.
 얼마든지 대답해줄 수 있으니까
 
 내 존재만 잊지 마.</div>
-
-    <div class="note">
-오늘 동해가 나를 처음 만난 사람처럼 바라봤다.
+    <div class="note">오늘 동해가 나를 처음 만난 사람처럼 바라봤다.
 정말 심장이 떨어지는 줄 알았다.
 몇 분 지나고 다시 기억이 돌아왔지만
 그 몇 분이 나에게는 영원처럼 느껴졌다.
@@ -644,208 +668,24 @@ h2 { font-size: 19px; }
 이러다 영영 네 기억 속에서 내가 사라지면 어떡하지.
 
 내일은 동해가 기억을 잃지 않기를,
-내일은 나를 기억하게 해주세요.
-    </div>
-
-    <button class="wide" onclick="show('home')">← 홈으로</button>
-  </section>
-
-  <!-- 통화 기록 -->
-  <section id="calls" class="screen">
-    <h2>최근 통화</h2>
-
-    <div class="panel">
-      이동해 ♡ · 오늘 오전 08:12<br>
-      통화 시간: 04:32
-    </div>
-
-    <div class="panel">
-      이동해 ♡ · 어제 오후 11:48<br>
-      통화 시간: 17:06
-    </div>
-
-    <div class="panel">
-      이동해 ♡ · 어제 오후 06:20<br>
-      부재중 전화
-    </div>
-
-    <p class="muted">
-      통화 기록 메모: 오늘도 자기 전에 전화하기.
-      내가 누군지 모르겠다고 해도 괜찮다고 말해 주기.
-    </p>
-
-    <button class="wide" onclick="show('home')">← 홈으로</button>
-  </section>
-
-  <!-- 달력 -->
-  <section id="calendar" class="screen">
-    <h2>달력</h2>
-
-    <div class="panel">
-      10월 15일 · 동해 생일 ♡
-      <br><br>
-      매년 기억할 것.
-      동해가 기억하지 못하더라도
-      내가 대신 기억하면 된다.
-    </div>
-
-    <button class="wide" onclick="show('home')">← 홈으로</button>
-  </section>
-
+내일은 나를 기억하게 해주세요.</div></div><button class="wide" onclick="show('home')">← 홈으로</button></section>
+  <section id="calls" class="screen"><div class="app-header"><button class="back" onclick="show('home')">‹ 홈</button><h2>최근 통화</h2></div><div class="screen-scroll"><div class="call-row"><div><div class="call-name">이동해 ♡</div><div class="call-detail">오늘 오전 08:12 · 통화 시간 04:32</div></div><span class="call-mark">↗</span></div><div class="call-row"><div><div class="call-name">이동해 ♡</div><div class="call-detail">어제 오후 11:48 · 통화 시간 17:06</div></div><span class="call-mark">↗</span></div><div class="call-row"><div><div class="call-name">이동해 ♡</div><div class="call-detail">어제 오후 06:20 · 부재중 전화</div></div><span class="call-mark" style="color:#ff6961">↙</span></div><p class="muted">통화 기록 메모: 오늘도 자기 전에 전화하기. 내가 누군지 모르겠다고 해도 괜찮다고 말해 주기.</p></div><button class="wide" onclick="show('home')">← 홈으로</button></section>
+    <section id="calendar" class="screen"><div class="app-header"><button class="back" onclick="show('home')">‹ 홈</button><h2>달력</h2></div><div class="screen-scroll"><div class="calendar-card"><div class="calendar-date">10월</div><div class="calendar-day">15</div><strong>동해 생일 ♡</strong><p class="muted">매년 기억할 것.</p><p class="muted">동해가 기억하지 못하더라도<br>내가 대신 기억하면 된다.</p></div></div><button class="wide" onclick="show('home')">← 홈으로</button></section>
+  <div class="home-indicator"></div>
 </div>
-
 <script>
-let enteredPin = "";
-let pinLocked = false;
-let pinTimer = null;
-
-/* 암호 점 표시 */
-function updatePinDots() {
-  document.querySelectorAll(".pin-dot").forEach((dot, index) => {
-    dot.classList.toggle("filled", index < enteredPin.length);
-  });
-}
-
-/* 암호 안내 문구 */
-function setPinMessage(message) {
-  const messageElement = document.getElementById("pin-message");
-  if (messageElement) {
-    messageElement.textContent = message;
-  }
-}
-
-/* 암호 입력 */
-function pressPin(number) {
-  if (pinLocked || enteredPin.length >= 4) return;
-
-  enteredPin += String(number);
-  updatePinDots();
-
-  if (enteredPin.length !== 4) return;
-
-  pinLocked = true;
-
-  if (enteredPin === "1015") {
-    setPinMessage("잠금 해제 중...");
-
-    pinTimer = setTimeout(() => {
-      enteredPin = "";
-      pinLocked = false;
-      pinTimer = null;
-      updatePinDots();
-      setPinMessage("암호를 입력하세요");
-      show("home");
-    }, 300);
-
-  } else {
-    setPinMessage("암호가 일치하지 않아요");
-
-    pinTimer = setTimeout(() => {
-      enteredPin = "";
-      pinLocked = false;
-      pinTimer = null;
-      updatePinDots();
-      setPinMessage("암호를 입력하세요");
-    }, 750);
-  }
-}
-
-/* 마지막 숫자 지우기 */
-function deletePin() {
-  if (pinLocked) return;
-
-  enteredPin = enteredPin.slice(0, -1);
-  updatePinDots();
-  setPinMessage("암호를 입력하세요");
-}
-
-/* 잠금 화면에서 암호 화면으로 이동 */
-function openPasscode() {
-  const lockScreen = document.getElementById("lock-screen");
-
-  if (!lockScreen) return;
-
-  lockScreen.classList.add("passcode-open");
-  updatePinDots();
-  setPinMessage("암호를 입력하세요");
-}
-
-/* 앱 화면 이동 */
-function show(screenId) {
-  const lockScreen = document.getElementById("lock-screen");
-
-  if (lockScreen) {
-    lockScreen.style.display = "none";
-  }
-
-  document.querySelectorAll(".screen").forEach(screen => {
-    screen.classList.remove("active");
-  });
-
-  const target = document.getElementById(screenId);
-
-  if (target) {
-    target.classList.add("active");
-  }
-}
-
-/* 홈에서 잠금 화면으로 돌아가기 */
-
-function backToLock() {
-  if (pinTimer !== null) {
-    clearTimeout(pinTimer);
-    pinTimer = null;
-  }
-
-  enteredPin = "";
-  pinLocked = false;
-
-  document.querySelectorAll(".screen").forEach(screen => {
-    screen.classList.remove("active");
-  });
-
-  const lockScreen = document.getElementById("lock-screen");
-
-  if (lockScreen) {
-    lockScreen.style.display = "flex";
-    lockScreen.classList.remove("passcode-open");
-  }
-
-  updatePinDots();
-  setPinMessage("암호를 입력하세요");
-}
-
-/* 시계와 날짜 */
-function updateClock() {
-  const now = new Date();
-
-  const timeText = now.toLocaleTimeString("ko-KR", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false
-  });
-
-  const clock = document.getElementById("preview-clock");
-  const statusTime = document.getElementById("status-time");
-  const date = document.getElementById("preview-date");
-
-  if (clock) clock.textContent = timeText;
-  if (statusTime) statusTime.textContent = timeText;
-
-  if (date) {
-    date.textContent = now.toLocaleDateString("ko-KR", {
-      month: "long",
-      day: "numeric",
-      weekday: "long"
-    });
-  }
-}
-
-/* 처음 실행 */
-updateClock();
-setInterval(updateClock, 1000);
+let enteredPin="",pinLocked=false,pinTimer=null;
+function updatePinDots(){document.querySelectorAll('.pin-dot').forEach((dot,index)=>dot.classList.toggle('filled',index<enteredPin.length));}
+function setPinMessage(message){const el=document.getElementById('pin-message');if(el)el.textContent=message;}
+function clearPinTimer(){if(pinTimer!==null){clearTimeout(pinTimer);pinTimer=null;}}
+function pressPin(number){if(pinLocked||enteredPin.length>=4)return;enteredPin+=String(number);updatePinDots();if(enteredPin.length!==4)return;pinLocked=true;if(enteredPin==='1015'){setPinMessage('잠금 해제 중...');pinTimer=setTimeout(()=>{pinTimer=null;enteredPin='';pinLocked=false;updatePinDots();setPinMessage('암호를 입력하세요');show('home');},300);}else{setPinMessage('암호가 일치하지 않아요');pinTimer=setTimeout(()=>{pinTimer=null;enteredPin='';pinLocked=false;updatePinDots();setPinMessage('암호를 입력하세요');},750);}}
+function deletePin(){if(pinLocked)return;enteredPin=enteredPin.slice(0,-1);updatePinDots();setPinMessage('암호를 입력하세요');}
+function openPasscode(){const lock=document.getElementById('lock-screen');if(!lock)return;lock.classList.add('passcode-open');enteredPin='';updatePinDots();setPinMessage('암호를 입력하세요');}
+function show(screenId){const lock=document.getElementById('lock-screen');if(lock)lock.style.display='none';document.querySelectorAll('.screen').forEach(screen=>screen.classList.remove('active'));const target=document.getElementById(screenId);if(target)target.classList.add('active');}
+function backToLock(){clearPinTimer();enteredPin='';pinLocked=false;document.querySelectorAll('.screen').forEach(screen=>screen.classList.remove('active'));const lock=document.getElementById('lock-screen');if(lock){lock.style.display='flex';lock.classList.remove('passcode-open');}updatePinDots();setPinMessage('암호를 입력하세요');}
+function updateClock(){const now=new Date();const time=now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',hour12:false});const clock=document.getElementById('preview-clock'),status=document.getElementById('status-time'),date=document.getElementById('preview-date');if(clock)clock.textContent=time;if(status)status.textContent=time;if(date)date.textContent=now.toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'long'});}
+updateClock();setInterval(updateClock,1000);
 </script>
-
 </body>
+  
 </html>
-
