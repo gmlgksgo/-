@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -57,7 +56,6 @@ button {
 
 .status-icons { letter-spacing: 2px; }
 
-/* 화면 전환 */
 .screen {
   display: none;
   flex: 1;
@@ -69,23 +67,40 @@ button {
 
 .screen.active { display: block; }
 
-/* 잠금화면 */
+/* 잠금 화면 */
 .lock-screen {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   text-align: center;
-  padding: 8px 3px 10px;
+  padding: 0 3px 10px;
   background: radial-gradient(
-    ellipse at 50% 10%,
+    ellipse at 50% 5%,
     #292929 0%,
-    #151515 45%,
+    #151515 48%,
     #101010 100%
   );
   border-radius: 18px;
+}
+
+/* 처음 보이는 잠금 미리보기 */
+.preview-screen {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 35px 8px 15px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .lock-content {
@@ -95,19 +110,19 @@ button {
 }
 
 .lock-clock {
-  font-size: clamp(52px, 15vw, 68px);
+  font-size: clamp(58px, 16vw, 76px);
   font-weight: 300;
-  letter-spacing: -3px;
-  line-height: 1.15;
+  letter-spacing: -4px;
+  line-height: 1.1;
   color: #f5f5f7;
-  margin: 0 0 4px;
+  margin: 0 0 7px;
   font-variant-numeric: tabular-nums;
 }
 
 .lock-date {
   color: #d1d1d6;
-  font-size: 13px;
-  margin: 0 0 16px;
+  font-size: 14px;
+  margin: 0 0 28px;
 }
 
 .lock-notification {
@@ -115,7 +130,7 @@ button {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  padding: 11px;
+  padding: 12px;
   margin: 0 0 17px;
   text-align: left;
   background: #303034;
@@ -163,6 +178,31 @@ button {
   overflow-wrap: anywhere;
 }
 
+.tap-hint {
+  color: #aaa;
+  font-size: 12px;
+  margin-top: 25px;
+}
+
+/* 암호 화면 */
+.passcode-screen {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  text-align: center;
+  padding: 35px 5px 10px;
+}
+
+#lock-screen.passcode-open .preview-screen {
+  display: none;
+}
+
+#lock-screen.passcode-open .passcode-screen {
+  display: block;
+}
+
 .lock-title {
   font-size: 22px;
   font-weight: 500;
@@ -172,7 +212,7 @@ button {
 .lock-hint {
   color: #aaa;
   font-size: 12px;
-  margin: 0 0 14px;
+  margin: 0 0 18px;
 }
 
 .pin-dots {
@@ -193,7 +233,7 @@ button {
 
 .pin-message {
   min-height: 16px;
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   color: #aaa;
   font-size: 11px;
 }
@@ -202,7 +242,7 @@ button {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
-  gap: 8px 8px;
+  gap: 9px;
   width: 100%;
   max-width: 250px;
   margin: 0 auto;
@@ -220,10 +260,8 @@ button {
   font-weight: 400;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: background .15s, transform .1s;
 }
 
-.keypad button:hover { background: #414247; }
 .keypad button:active {
   background: #505156;
   transform: scale(.94);
@@ -240,13 +278,14 @@ button {
 }
 
 .lock-footer {
+  flex-shrink: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #888;
   font-size: 11px;
-  padding: 10px 5px 0;
+  padding: 10px 8px 0;
   margin-top: auto;
 }
 
@@ -279,7 +318,6 @@ h2 { font-size: 19px; }
   border: 1px solid #444;
   border-radius: 17px;
   font-size: 12px;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .app span {
@@ -340,6 +378,7 @@ h2 { font-size: 19px; }
 }
 
 .received { margin-right: auto; }
+
 .sent {
   margin-left: auto;
   background: #282828;
@@ -380,51 +419,19 @@ h2 { font-size: 19px; }
     min-height: 0;
   }
 
-  .lock-clock { font-size: 48px; }
-  .lock-date { margin-bottom: 9px; }
+  .preview-screen { padding-top: 22px; }
+  .lock-clock { font-size: 54px; }
+  .lock-date { margin-bottom: 17px; }
   .lock-notification { margin-bottom: 10px; padding: 9px; }
-  .lock-hint { margin-bottom: 9px; }
-  .keypad { gap: 5px; }
+  .passcode-screen { padding-top: 20px; }
+  .keypad { gap: 6px; }
+
   .keypad button,
   .keypad .key-empty {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
   }
 }
-  .preview-screen {
-  display: flex;
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-}
-
-.passcode-screen {
-  display: none;
-  width: 100%;
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  text-align: center;
-}
-
-.tap-hint {
-  color: #aaa;
-  font-size: 12px;
-  margin-top: 20px;
-}
-
-#lock-screen.passcode-open .preview-screen {
-  display: none;
-}
-
-#lock-screen.passcode-open .passcode-screen {
-  display: block;
-}
-
 </style>
 </head>
 
@@ -438,32 +445,38 @@ h2 { font-size: 19px; }
 
   <!-- 잠금 화면 -->
   <div id="lock-screen" class="lock-screen">
-  <div id="preview-screen"
-       class="preview-screen"
-       onclick="openPasscode()">
-    <div class="lock-content">
-      <div class="lock-clock" id="preview-clock">9:41</div>
-      <p class="lock-date">10월 15일</p>
 
-      <div class="lock-notification">
-        <div class="notification-icon">✉</div>
-        <div class="notification-content">
-          <div class="notification-top">
-            <span>메시지 · SJ 이동핵 </span>
-            <span>지금</span>
-          </div>
-          <div class="notification-title">동해</div>
-          <div class="notification-text">
-            혁아! 머해 ? ㅎ
+    <!-- 처음 보이는 화면: 어디를 눌러도 암호 화면으로 이동 -->
+    <div id="preview-screen"
+         class="preview-screen"
+         onclick="openPasscode()">
+
+      <div class="lock-content">
+        <div class="lock-clock" id="preview-clock">9:41</div>
+        <p class="lock-date" id="preview-date">10월 15일</p>
+
+        <div class="lock-notification">
+          <div class="notification-icon">✉</div>
+
+          <div class="notification-content">
+            <div class="notification-top">
+              <span>메시지</span>
+              <span>지금</span>
+            </div>
+
+            <div class="notification-title">동해</div>
+            <div class="notification-text">
+              혁아! 머해? ㅎ
+            </div>
           </div>
         </div>
+
+        <p class="tap-hint">화면을 눌러 열기</p>
       </div>
-
-      <p class="tap-hint">화면을 눌러 열기</p>
     </div>
-  </div>
 
-  <div id="passcode-screen" class="passcode-screen">
+    <!-- 암호 입력 화면 -->
+    <div id="passcode-screen" class="passcode-screen">
 
       <h1 class="lock-title">암호 입력</h1>
       <p class="lock-hint">내 새끼 생일♡</p>
@@ -475,18 +488,23 @@ h2 { font-size: 19px; }
         <span class="pin-dot"></span>
       </div>
 
-      <p id="pin-message" class="pin-message">암호를 입력하세요</p>
+      <p id="pin-message" class="pin-message">
+        암호를 입력하세요
+      </p>
 
       <div class="keypad">
         <button type="button" onclick="pressPin('1')">1</button>
         <button type="button" onclick="pressPin('2')">2</button>
         <button type="button" onclick="pressPin('3')">3</button>
+
         <button type="button" onclick="pressPin('4')">4</button>
         <button type="button" onclick="pressPin('5')">5</button>
         <button type="button" onclick="pressPin('6')">6</button>
+
         <button type="button" onclick="pressPin('7')">7</button>
         <button type="button" onclick="pressPin('8')">8</button>
         <button type="button" onclick="pressPin('9')">9</button>
+
         <span class="key-empty"></span>
         <button type="button" onclick="pressPin('0')">0</button>
         <button type="button" class="delete-key"
@@ -510,18 +528,23 @@ h2 { font-size: 19px; }
       <button class="app" onclick="show('messages')">
         <span>✉</span>메시지
       </button>
+
       <button class="app" onclick="show('photos')">
         <span>▧</span>사진
       </button>
+
       <button class="app" onclick="show('notes')">
         <span>▤</span>메모
       </button>
+
       <button class="app" onclick="show('calls')">
         <span>☎</span>통화 기록
       </button>
+
       <button class="app" onclick="show('calendar')">
         <span>▦</span>달력
       </button>
+
       <button class="lock-return" onclick="backToLock()">
         <span class="return-icon">♧</span>
         <span>돌아가기</span>
@@ -630,28 +653,34 @@ h2 { font-size: 19px; }
   <!-- 통화 기록 -->
   <section id="calls" class="screen">
     <h2>최근 통화</h2>
+
     <div class="panel">
       이동해 ♡ · 오늘 오전 08:12<br>
       통화 시간: 04:32
     </div>
+
     <div class="panel">
       이동해 ♡ · 어제 오후 11:48<br>
       통화 시간: 17:06
     </div>
+
     <div class="panel">
       이동해 ♡ · 어제 오후 06:20<br>
       부재중 전화
     </div>
+
     <p class="muted">
       통화 기록 메모: 오늘도 자기 전에 전화하기.
       내가 누군지 모르겠다고 해도 괜찮다고 말해 주기.
     </p>
+
     <button class="wide" onclick="show('home')">← 홈으로</button>
   </section>
 
   <!-- 달력 -->
   <section id="calendar" class="screen">
     <h2>달력</h2>
+
     <div class="panel">
       10월 15일 · 동해 생일 ♡
       <br><br>
@@ -659,6 +688,7 @@ h2 { font-size: 19px; }
       동해가 기억하지 못하더라도
       내가 대신 기억하면 된다.
     </div>
+
     <button class="wide" onclick="show('home')">← 홈으로</button>
   </section>
 
@@ -669,16 +699,22 @@ let enteredPin = "";
 let pinLocked = false;
 let pinTimer = null;
 
+/* 암호 점 표시 */
 function updatePinDots() {
   document.querySelectorAll(".pin-dot").forEach((dot, index) => {
     dot.classList.toggle("filled", index < enteredPin.length);
   });
 }
 
+/* 암호 안내 문구 */
 function setPinMessage(message) {
-  document.getElementById("pin-message").textContent = message;
+  const messageElement = document.getElementById("pin-message");
+  if (messageElement) {
+    messageElement.textContent = message;
+  }
 }
 
+/* 암호 입력 */
 function pressPin(number) {
   if (pinLocked || enteredPin.length >= 4) return;
 
@@ -694,23 +730,27 @@ function pressPin(number) {
 
     pinTimer = setTimeout(() => {
       enteredPin = "";
+      pinLocked = false;
+      pinTimer = null;
       updatePinDots();
       setPinMessage("암호를 입력하세요");
       show("home");
-      pinLocked = false;
-    }, 250);
+    }, 300);
+
   } else {
     setPinMessage("암호가 일치하지 않아요");
 
     pinTimer = setTimeout(() => {
       enteredPin = "";
+      pinLocked = false;
+      pinTimer = null;
       updatePinDots();
       setPinMessage("암호를 입력하세요");
-      pinLocked = false;
     }, 750);
   }
 }
 
+/* 마지막 숫자 지우기 */
 function deletePin() {
   if (pinLocked) return;
 
@@ -719,8 +759,24 @@ function deletePin() {
   setPinMessage("암호를 입력하세요");
 }
 
+/* 잠금 화면에서 암호 화면으로 이동 */
+function openPasscode() {
+  const lockScreen = document.getElementById("lock-screen");
+
+  if (!lockScreen) return;
+
+  lockScreen.classList.add("passcode-open");
+  updatePinDots();
+  setPinMessage("암호를 입력하세요");
+}
+
+/* 앱 화면 이동 */
 function show(screenId) {
-  document.getElementById("lock-screen").style.display = "none";
+  const lockScreen = document.getElementById("lock-screen");
+
+  if (lockScreen) {
+    lockScreen.style.display = "none";
+  }
 
   document.querySelectorAll(".screen").forEach(screen => {
     screen.classList.remove("active");
@@ -733,9 +789,9 @@ function show(screenId) {
   }
 }
 
-
+/* 홈에서 잠금 화면으로 돌아가기 */
 function backToLock() {
-  if (typeof pinTimer !== "undefined" && pinTimer !== null) {
+  if (pinTimer !== null) {
     clearTimeout(pinTimer);
     pinTimer = null;
   }
@@ -748,25 +804,22 @@ function backToLock() {
   });
 
   const lockScreen = document.getElementById("lock-screen");
+  const preview = document.getElementById("preview-screen");
+  const passcode = document.getElementById("passcode-screen");
 
   if (lockScreen) {
     lockScreen.style.display = "flex";
     lockScreen.classList.remove("passcode-open");
-
-    const preview = document.getElementById("preview-screen");
-    const passcode = document.getElementById("passcode-screen");
-
-    if (preview) preview.style.display = "flex";
-    if (passcode) passcode.style.display = "none";
   }
 
-  if (typeof updatePinDots === "function") updatePinDots();
-  if (typeof setPinMessage === "function") {
-    setPinMessage("암호를 입력하세요");
-  }
+  if (preview) preview.style.display = "flex";
+  if (passcode) passcode.style.display = "none";
+
+  updatePinDots();
+  setPinMessage("암호를 입력하세요");
 }
 
-
+/* 시계와 날짜 */
 function updateClock() {
   const now = new Date();
 
@@ -776,19 +829,27 @@ function updateClock() {
     hour12: false
   });
 
-  document.getElementById("lock-clock").textContent = timeText;
-  document.getElementById("status-time").textContent = timeText;
-}
-  
-  function openPasscode() {
-  document.getElementById("lock-screen")
-    .classList.add("passcode-open");
+  const clock = document.getElementById("preview-clock");
+  const statusTime = document.getElementById("status-time");
+  const date = document.getElementById("preview-date");
+
+  if (clock) clock.textContent = timeText;
+  if (statusTime) statusTime.textContent = timeText;
+
+  if (date) {
+    date.textContent = now.toLocaleDateString("ko-KR", {
+      month: "long",
+      day: "numeric",
+      weekday: "long"
+    });
+  }
 }
 
+/* 처음 실행 */
 updateClock();
 setInterval(updateClock, 1000);
-
 </script>
 
 </body>
 </html>
+
