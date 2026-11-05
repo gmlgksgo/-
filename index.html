@@ -790,6 +790,7 @@ function show(screenId) {
 }
 
 /* 홈에서 잠금 화면으로 돌아가기 */
+
 function backToLock() {
   if (pinTimer !== null) {
     clearTimeout(pinTimer);
@@ -804,16 +805,11 @@ function backToLock() {
   });
 
   const lockScreen = document.getElementById("lock-screen");
-  const preview = document.getElementById("preview-screen");
-  const passcode = document.getElementById("passcode-screen");
 
   if (lockScreen) {
     lockScreen.style.display = "flex";
     lockScreen.classList.remove("passcode-open");
   }
-
-  if (preview) preview.style.display = "flex";
-  if (passcode) passcode.style.display = "none";
 
   updatePinDots();
   setPinMessage("암호를 입력하세요");
